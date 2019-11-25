@@ -15,6 +15,7 @@ namespace Project_YannickVanDyck
                 return true;
             }
             return false;
+            //lul is lul en koek is koek
         }
     }
 }
