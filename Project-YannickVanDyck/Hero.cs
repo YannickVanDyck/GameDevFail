@@ -51,7 +51,7 @@ namespace Project_YannickVanDyck
         }
         double xOffset = 0;
 
-        public Rectangle CollisionRectangle { get => collisionRectangle; set => collisionRectangle = value; }
+        public Rectangle CollisionRectangleTop { get => collisionRectangle; set => collisionRectangle = value; }
 
         public void Update(GameTime gameTime)
         {

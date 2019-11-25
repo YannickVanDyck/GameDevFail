@@ -10,7 +10,7 @@ namespace Project_YannickVanDyck
 {
     public interface ICollide
     {
-        Rectangle CollisionRectangle { get; set; } //iedereen die van ICollide overerft moet een CollisionRectangle hebben
+        Rectangle CollisionRectangleTop { get; set; } //iedereen die van ICollide overerft moet een CollisionRectangle hebben
 
         void Draw(SpriteBatch spriteBatch);
     }

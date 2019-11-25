@@ -84,11 +84,11 @@ namespace Project_YannickVanDyck
                 Exit();
 
             //hier collide code
-            if (Co.CheckCollider(ground, hero) == true)
+            /*if (Co.CheckCollider(ground, hero) == true)
             {
                 System.Console.WriteLine("1234 hoedje van hoedje van");
                 hero.velocity.Y = 0;
-            }
+            }*/
 
             hero.Update(gameTime);
 
