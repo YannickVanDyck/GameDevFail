@@ -85,6 +85,8 @@ namespace Project_YannickVanDyck
 
             hero.Update(gameTime);
 
+            level.Update(gameTime);
+
             base.Update(gameTime);
 
 

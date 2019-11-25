@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Project_YannickVanDyck
 {
     class CollisionManager
     {
-        List<ICollide> Collection;
+        List<ICollideBlok> Collection;
         Hero Hero;
         //hier elk blokje in de lijst Collection controleren op collision met hero
-        public CollisionManager(Hero hero, List<ICollide> collection)
+        public CollisionManager(Hero hero, List<ICollideBlok> collection)
         {
             Collection = collection;
             Hero = hero;

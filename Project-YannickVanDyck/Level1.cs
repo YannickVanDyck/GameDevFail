@@ -15,7 +15,7 @@ namespace Project_YannickVanDyck
         Hero Hero;
         public Rectangle CollisionRectangle;
         CollisionManager CM;
-        List<ICollide> Collection = new List<ICollide>();
+        List<ICollideBlok> Collection = new List<ICollideBlok>();
         public byte[,] tileArray = new Byte[,]
         {
             {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
@@ -38,7 +38,7 @@ namespace Project_YannickVanDyck
 
         public Level1(Hero hero)
         {
-            Hero = hero
+            Hero = hero;
         }
 
         public int test = 0;
@@ -65,12 +65,12 @@ namespace Project_YannickVanDyck
         }
 
         //nog een updater maken
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             CM = new CollisionManager(Hero, Collection);
             foreach (var item in Collection)
             {
-                CM.CheckForCollision();
+                CM.CheckForCollision(item);
             }
         }
     }
