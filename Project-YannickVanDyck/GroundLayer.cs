@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project_YannickVanDyck
 {
-    class GroundLayer : ICollide
+    class GroundLayer : ICollideBlok
     {
         public Texture2D texture;
         public Vector2 position;

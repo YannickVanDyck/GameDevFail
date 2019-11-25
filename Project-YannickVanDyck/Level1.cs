@@ -12,7 +12,9 @@ namespace Project_YannickVanDyck
     public class Level1
     {
         public Texture2D texture;
+        Hero Hero;
         public Rectangle CollisionRectangle;
+        CollisionManager CM;
         List<ICollide> Collection = new List<ICollide>();
         public byte[,] tileArray = new Byte[,]
         {
@@ -33,6 +35,11 @@ namespace Project_YannickVanDyck
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
         };
+
+        public Level1(Hero hero)
+        {
+            Hero = hero
+        }
 
         public int test = 0;
         public void CreateWorld()
@@ -58,5 +65,13 @@ namespace Project_YannickVanDyck
         }
 
         //nog een updater maken
+        public void Update()
+        {
+            CM = new CollisionManager(Hero, Collection);
+            foreach (var item in Collection)
+            {
+                CM.CheckForCollision();
+            }
+        }
     }
 }

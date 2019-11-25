@@ -15,7 +15,7 @@ namespace Project_YannickVanDyck
         Hero hero;
         GroundLayer ground;
         Level1 level;
-        Collider Co;
+        CollisionManager Co;
 
         public Game1()
         {
@@ -56,9 +56,7 @@ namespace Project_YannickVanDyck
             Texture2D _tile = Content.Load<Texture2D>("Tile");
             ground = new GroundLayer(_tile, new Vector2(0, 0));
 
-            Co = new Collider();
-
-            level = new Level1();
+            level = new Level1(hero);
             level.texture = _tile;
             level.CreateWorld();
             // TODO: use this.Content to load your game content here
@@ -83,12 +81,7 @@ namespace Project_YannickVanDyck
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //hier collide code
-            /*if (Co.CheckCollider(ground, hero) == true)
-            {
-                System.Console.WriteLine("1234 hoedje van hoedje van");
-                hero.velocity.Y = 0;
-            }*/
+            
 
             hero.Update(gameTime);
 
