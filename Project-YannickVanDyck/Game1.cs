@@ -14,7 +14,7 @@ namespace Project_YannickVanDyck
         Texture2D _heroTexture;
         Hero hero;
         GroundLayer ground;
-        Level1 level;
+        Level1 level1;
         CollisionManager Co;
 
         public Game1()
@@ -56,9 +56,9 @@ namespace Project_YannickVanDyck
             Texture2D _tile = Content.Load<Texture2D>("Tile");
             ground = new GroundLayer(_tile, new Vector2(0, 0));
 
-            level = new Level1(hero);
-            level.texture = _tile;
-            level.CreateWorld();
+            level1 = new Level1(hero);
+            level1.texture = _tile;
+            level1.CreateWorld();
             // TODO: use this.Content to load your game content here
         }
 
@@ -85,7 +85,7 @@ namespace Project_YannickVanDyck
 
             hero.Update(gameTime);
 
-            level.Update(gameTime);
+            level1.Update(gameTime);
 
             base.Update(gameTime);
 
@@ -103,7 +103,7 @@ namespace Project_YannickVanDyck
             spriteBatch.Begin();
 
             hero.Draw(spriteBatch);
-            level.DrawWorld(spriteBatch);
+            level1.DrawWorld(spriteBatch);
 
             spriteBatch.End();
 

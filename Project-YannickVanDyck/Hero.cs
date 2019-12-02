@@ -13,7 +13,7 @@ namespace Project_YannickVanDyck
         Animation animationMove;
         Animation animationJump;
         public float gravity = 9.8f;
-        private Rectangle collisionRectangle;
+        private Rectangle collisionRectangleTop;
         public Controls _controls { get; set; }
 
 
@@ -42,11 +42,11 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangle = new Rectangle((int)position.X, (int)position.Y, 109, 132);
+            collisionRectangleTop = new Rectangle((int)position.X, (int)position.Y, 109, 132);
         }
         double xOffset = 0;
 
-        public Rectangle CollisionRectangleTop { get => collisionRectangle; set => collisionRectangle = value; }
+        public Rectangle CollisionRectangleTop { get => collisionRectangleTop; set => collisionRectangleTop = value; }
 
         public void Update(GameTime gameTime)
         {

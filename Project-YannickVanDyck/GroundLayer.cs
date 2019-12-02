@@ -36,7 +36,6 @@ namespace Project_YannickVanDyck
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, LGround.currentFrame.SourceRectangle, Color.White);
-
         }
     }
 }

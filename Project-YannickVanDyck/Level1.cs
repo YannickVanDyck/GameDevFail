@@ -68,10 +68,7 @@ namespace Project_YannickVanDyck
         public void Update(GameTime gameTime)
         {
             CM = new CollisionManager(Hero, Collection);
-            foreach (var item in Collection)
-            {
-                CM.CheckForCollision(item);
-            }
+            CM.CheckForCollision();
         }
     }
 }

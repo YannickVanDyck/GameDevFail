@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Project_YannickVanDyck
 {
@@ -14,23 +15,26 @@ namespace Project_YannickVanDyck
         }
 
         #region Collision
-        public void CheckForCollision(ICollideBlok collide)
+        public void CheckForCollision()
         {
-            if (Hero.CollisionRectangleTop.Intersects(collide.CollisionRectangleBottom))
+            foreach (GroundLayer item in Collection)
             {
-                System.Console.WriteLine("Stop met vallen");
-            }
-            if (Hero.CollisionRectangleTop.Intersects(collide.CollisionRectangleBottom))
-            {
-                System.Console.WriteLine("Stop met springen");
-            }
-            if (Hero.CollisionRectangleTop.Intersects(collide.CollisionRectangleRight))
-            {
-                System.Console.WriteLine("Stop met naar links te bewegen");
-            }
-            if (Hero.CollisionRectangleTop.Intersects(collide.CollisionRectangleLeft))
-            {
-                System.Console.WriteLine("Stop met naar Rechts te bewegen");
+                if (Hero.CollisionRectangleTop.Intersects(item.CollisionRectangleTop))
+                {
+                    Console.WriteLine("Stop met vallen");
+                }
+                if (Hero.CollisionRectangleTop.Intersects(item.CollisionRectangleBottom))
+                {
+                    Console.WriteLine("Stop met springen");
+                }
+                if (Hero.CollisionRectangleTop.Intersects(item.CollisionRectangleRight))
+                {
+                    Console.WriteLine("Stop met naar links te bewegen");
+                }
+                if (Hero.CollisionRectangleTop.Intersects(item.CollisionRectangleLeft))
+                {
+                    Console.WriteLine("Stop met naar Rechts te bewegen");
+                }
             }
         }
         #endregion
