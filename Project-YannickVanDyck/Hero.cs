@@ -110,9 +110,9 @@ namespace Project_YannickVanDyck
             }
         }
 
-        /*public Rectangle CollisionRectangle
+        public Rectangle GetCollisionRectangle()
         {
-            get => 
-        }*/
+            return CollisionRectangleTop;
+        }
     }
 }

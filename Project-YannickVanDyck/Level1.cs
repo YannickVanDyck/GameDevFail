@@ -2,10 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 
 namespace Project_YannickVanDyck
 {
@@ -15,7 +11,7 @@ namespace Project_YannickVanDyck
         Hero Hero;
         public Rectangle CollisionRectangle;
         CollisionManager CM;
-        List<ICollideBlok> Collection = new List<ICollideBlok>();
+        List<ICollide> Collection = new List<ICollide>();
         public byte[,] tileArray = new Byte[,]
         {
             {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
@@ -54,6 +50,7 @@ namespace Project_YannickVanDyck
                     }
                 }
             }
+            CM = new CollisionManager(Hero, Collection);
         }
 
         public void DrawWorld(SpriteBatch spriteBatch)
@@ -67,7 +64,6 @@ namespace Project_YannickVanDyck
         //nog een updater maken
         public void Update(GameTime gameTime)
         {
-            CM = new CollisionManager(Hero, Collection);
             CM.CheckForCollision();
         }
     }

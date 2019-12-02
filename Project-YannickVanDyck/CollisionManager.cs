@@ -11,10 +11,10 @@ namespace Project_YannickVanDyck
         bool stopJump;
 
 
-        List<ICollideBlok> Collection;
+        List<ICollide> Collection;
         Hero Hero;
         //hier elk blokje in de lijst Collection controleren op collision met hero
-        public CollisionManager(Hero hero, List<ICollideBlok> collection)
+        public CollisionManager(Hero hero, List<ICollide> collection)
         {
             Collection = collection;
             Hero = hero;
@@ -23,7 +23,8 @@ namespace Project_YannickVanDyck
         #region Collision
         public void CheckForCollision()
         {
-            foreach (GroundLayer item in Collection)
+            //Console.WriteLine(Collection.Count);
+            foreach (ICollide item in Collection)
             {
                 if (Hero.CollisionRectangleTop.Intersects(item.CollisionRectangleTop))
                 {
@@ -32,7 +33,7 @@ namespace Project_YannickVanDyck
                 }
                 else stopFall = false;
 
-                if (Hero.CollisionRectangleTop.Intersects(item.CollisionRectangleBottom))
+                /*if (Hero.CollisionRectangleTop.Intersects(item.CollisionRectangleBottom))
                 {
                     Console.WriteLine("Stop met springen");
                     stopJump = true;
@@ -51,7 +52,7 @@ namespace Project_YannickVanDyck
                     Console.WriteLine("Stop met naar Rechts te bewegen");
                     stopRight = true;
                 }
-                else stopRight = false;
+                else stopRight = false;*/
             }
         }
         #endregion
