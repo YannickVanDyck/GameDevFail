@@ -17,6 +17,8 @@ namespace Project_YannickVanDyck
         private Rectangle collisionRectangleBottom;
         public Controls _controls { get; set; }
 
+        
+
 
         public Hero(Texture2D _textureLeft, Texture2D _textureRight, Vector2 _position)
         {
