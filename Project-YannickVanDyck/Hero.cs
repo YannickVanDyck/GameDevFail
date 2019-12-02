@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_YannickVanDyck
 {
-    public class Hero :ICollide
+    public class Hero : ICollide
     {
         private Texture2D textureLeft;
         private Texture2D textureRight;
@@ -14,6 +14,7 @@ namespace Project_YannickVanDyck
         Animation animationJump;
         public float gravity = 9.8f;
         private Rectangle collisionRectangleTop;
+        private Rectangle collisionRectangleBottom;
         public Controls _controls { get; set; }
 
 
@@ -42,11 +43,13 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangleTop = new Rectangle((int)position.X, (int)position.Y, 109, 132);
+            collisionRectangleTop = new Rectangle((int)position.X, (int)position.Y, 109, 64);
+            collisionRectangleBottom = new Rectangle((int)position.X, (int)position.Y + 68, 109, 64);
         }
         double xOffset = 0;
 
         public Rectangle CollisionRectangleTop { get => collisionRectangleTop; set => collisionRectangleTop = value; }
+        public Rectangle CollisionRectangleBottom { get => collisionRectangleBottom; set => collisionRectangleBottom = value; }
 
         public void Update(GameTime gameTime)
         {
@@ -108,11 +111,6 @@ namespace Project_YannickVanDyck
             {
                 spriteBatch.Draw(textureRight, position, animationJump.currentFrame.SourceRectangle, Color.White);
             }
-        }
-
-        public Rectangle GetCollisionRectangle()
-        {
-            return CollisionRectangleTop;
         }
     }
 }
