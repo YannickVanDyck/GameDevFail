@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_YannickVanDyck
 {
-    public class Hero : ICollide
+    public class Hero : ICollideHero
     {
         private Texture2D textureLeft;
         private Texture2D textureRight;
@@ -13,9 +13,14 @@ namespace Project_YannickVanDyck
         Animation animationMove;
         Animation animationJump;
         public float gravity = 9.8f;
-        private Rectangle collisionRectangleTop;
-        private Rectangle collisionRectangleBottom;
+        private Rectangle collisionRectangleLeft;
+        private Rectangle collisionRectangleRight;
         public Controls _controls { get; set; }
+
+        bool stopLeft = false;
+        bool stopRight = false;
+        bool stopJump = false;
+        bool stopFall = false;
 
         
 
@@ -45,13 +50,13 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangleTop = new Rectangle((int)position.X, (int)position.Y, 109, 64);
-            collisionRectangleBottom = new Rectangle((int)position.X, (int)position.Y + 68, 109, 64);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 51, 132);
+            collisionRectangleRight = new Rectangle((int)position.X + 7, (int)position.Y, 51, 132);
         }
         double xOffset = 0;
 
-        public Rectangle CollisionRectangleTop { get => collisionRectangleTop; set => collisionRectangleTop = value; }
-        public Rectangle CollisionRectangleBottom { get => collisionRectangleBottom; set => collisionRectangleBottom = value; }
+        public Rectangle CollisionRectangleLeft { get => collisionRectangleLeft; set => collisionRectangleLeft = value; }
+        public Rectangle CollisionRectangleRight { get => collisionRectangleRight; set => collisionRectangleRight = value; }
 
         public void Update(GameTime gameTime)
         {
@@ -62,11 +67,11 @@ namespace Project_YannickVanDyck
             position.X += velocity.X;
             position.Y += velocity.Y;
 
-            if (_controls.left)
+            if (_controls.left && !stopLeft)
             {
                 position.X -= 3;
             }
-            if (_controls.right)
+            if (_controls.right && !stopRight)
             {
                 position.X += 3;
             }

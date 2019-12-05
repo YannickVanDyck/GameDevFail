@@ -11,7 +11,7 @@ namespace Project_YannickVanDyck
         Hero Hero;
         public Rectangle CollisionRectangle;
         CollisionManager CM;
-        List<ICollide> Collection = new List<ICollide>();
+        public List<ICollide> Collides = new List<ICollide>();
         public byte[,] tileArray = new Byte[,]
         {
             {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
@@ -46,16 +46,16 @@ namespace Project_YannickVanDyck
                 {
                     if (tileArray[x, y] == 1)
                     {
-                        Collection.Add(new GroundLayer(texture, new Vector2(y * 64, x * 64)));
+                        Collides.Add(new GroundLayer(texture, new Vector2(y * 64, x * 64)));
                     }
                 }
             }
-            CM = new CollisionManager(Hero, Collection);
+            CM = new CollisionManager(Hero, Collides);
         }
 
         public void DrawWorld(SpriteBatch spriteBatch)
         {
-            foreach (var item in Collection)
+            foreach (var item in Collides)
             {
                 item.Draw(spriteBatch);
             }
@@ -64,7 +64,7 @@ namespace Project_YannickVanDyck
         //nog een updater maken
         public void Update(GameTime gameTime)
         {
-
+            CM;
         }
     }
 }

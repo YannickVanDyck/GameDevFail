@@ -59,6 +59,8 @@ namespace Project_YannickVanDyck
             level1 = new Level1(hero);
             level1.texture = _tile;
             level1.CreateWorld();
+
+            Co = new CollisionManager(hero, level1.Collection);
             // TODO: use this.Content to load your game content here
         }
 
