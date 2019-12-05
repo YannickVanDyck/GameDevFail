@@ -17,10 +17,10 @@ namespace Project_YannickVanDyck
         private Rectangle collisionRectangleRight;
         public Controls _controls { get; set; }
 
-        bool stopLeft = false;
-        bool stopRight = false;
-        bool stopJump = false;
-        bool stopFall = false;
+        public bool stopLeft = false;
+        public bool stopRight = false;
+        public bool stopJump = false;
+        public bool stopFall = false;
 
         
 

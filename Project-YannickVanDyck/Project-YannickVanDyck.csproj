@@ -49,6 +49,7 @@
     <Compile Include="GroundLayer.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="ICollide.cs" />
+    <Compile Include="ICollideHero.cs" />
     <Compile Include="Level1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

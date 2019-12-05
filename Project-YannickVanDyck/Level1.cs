@@ -64,7 +64,7 @@ namespace Project_YannickVanDyck
         //nog een updater maken
         public void Update(GameTime gameTime)
         {
-            CM;
+            CM.CheckForCollision();
         }
     }
 }
