@@ -75,8 +75,8 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 115);
-            collisionRectangleRight = new Rectangle((int)position.X + 70, (int)position.Y, 10, 115);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 54, 115);
+            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 56, 115);
         }
         double xOffset = 0;
 
@@ -106,16 +106,16 @@ namespace Project_YannickVanDyck
 
             if (_controls.up && !stopJump)
             {
-                velocity.Y = -10;
+                velocity.Y = -7;
                 stopFall = false;
                 stopJump = true;
             }
-            if (!_controls.up && !stopFall) //position vervangen door hitboxes van grond
+            if (!_controls.up && !stopFall || _controls.up && stopJump) //position vervangen door hitboxes van grond
             {
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            if (!_controls.up && stopFall) //position vervangen door hitboxes van grond
+            if (!_controls.up && stopFall || _controls.up && stopFall) //position vervangen door hitboxes van grond
             {
                 velocity.Y = 0;
                 stopFall = false;
@@ -157,8 +157,8 @@ namespace Project_YannickVanDyck
                 t1 = GroundLayer.CreateTexture(device, CollisionRectangleLeft.Width, CollisionRectangleLeft.Height, pixel => Color.Red);
                 t2 = GroundLayer.CreateTexture(device, CollisionRectangleRight.Width, CollisionRectangleRight.Height, pixel => Color.Green);
             }
-            spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
-            spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
+            //spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
+            //spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
         }
     }
 }

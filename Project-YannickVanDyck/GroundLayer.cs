@@ -39,8 +39,8 @@ namespace Project_YannickVanDyck
                 t1 = CreateTexture(device, CollisionRectangleBottom.Width, CollisionRectangleBottom.Height, pixel => Color.Red);
                 t2 = CreateTexture(device, CollisionRectangleBottom.Width, CollisionRectangleBottom.Height, pixel => Color.Green);
             }
-            spriteBatch.Draw(t1, CollisionRectangleTop, Color.White);
-            spriteBatch.Draw(t2, CollisionRectangleBottom, Color.White);
+            //spriteBatch.Draw(t1, CollisionRectangleTop, Color.White);
+            //spriteBatch.Draw(t2, CollisionRectangleBottom, Color.White);
         }
 
         public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Func<int, Color> paint)
