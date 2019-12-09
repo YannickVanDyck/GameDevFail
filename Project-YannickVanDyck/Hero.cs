@@ -7,7 +7,29 @@ namespace Project_YannickVanDyck
     {
         private Texture2D textureLeft;
         private Texture2D textureRight;
-        public Vector2 position;
+        
+        
+        private Vector2 _position { get; set; }
+        public Vector2 position
+        {
+            get
+            {
+                return _position;
+            }
+            set
+            {
+                _position = value;
+                Rectangle temp = CollisionRectangleLeft;
+                temp.Location = _position.ToPoint();
+                temp.X -= 3;
+                CollisionRectangleLeft = temp;
+                temp.X += temp.Width;
+                CollisionRectangleRight = temp;
+            }
+        }
+
+
+
         public Vector2 velocity;
         Animation animationIdle;
         Animation animationMove;
@@ -21,6 +43,9 @@ namespace Project_YannickVanDyck
         public bool stopRight = false;
         public bool stopJump = false;
         public bool stopFall = false;
+
+        Texture2D t1;
+        Texture2D t2;
 
         
 
@@ -50,8 +75,8 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 51, 132);
-            collisionRectangleRight = new Rectangle((int)position.X + 7, (int)position.Y, 51, 132);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 115);
+            collisionRectangleRight = new Rectangle((int)position.X + 70, (int)position.Y, 10, 115);
         }
         double xOffset = 0;
 
@@ -64,35 +89,43 @@ namespace Project_YannickVanDyck
             animationJump.Update(gameTime);
             animationIdle.Update(gameTime);
             _controls.Update();
-            position.X += velocity.X;
-            position.Y += velocity.Y;
+            Vector2 temp = position;
+            temp.X += velocity.X;
+            temp.Y += velocity.Y;
 
             if (_controls.left && !stopLeft)
             {
-                position.X -= 3;
+                temp.X -= 3;
+                stopRight = false;
             }
             if (_controls.right && !stopRight)
             {
-                position.X += 3;
+                temp.X += 3;
+                stopLeft = false;
             }
 
-            if (_controls.up && position.Y > 840)
+            if (_controls.up && !stopJump)
             {
                 velocity.Y = -10;
+                stopFall = false;
+                stopJump = true;
             }
-            if (!_controls.up && position.Y < 850) //position vervangen door hitboxes van grond
+            if (!_controls.up && !stopFall) //position vervangen door hitboxes van grond
             {
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            if (!_controls.up && position.Y > 850) //position vervangen door hitboxes van grond
+            if (!_controls.up && stopFall) //position vervangen door hitboxes van grond
             {
                 velocity.Y = 0;
+                stopFall = false;
+                stopJump = false;
             }
+            position = temp;
         }
 
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDevice device)
         {
             if (!_controls.left && !_controls.right && !_controls.idleLeft)
             {
@@ -118,6 +151,14 @@ namespace Project_YannickVanDyck
             {
                 spriteBatch.Draw(textureRight, position, animationJump.currentFrame.SourceRectangle, Color.White);
             }
+
+            if (t1 == null || t2 == null)
+            {
+                t1 = GroundLayer.CreateTexture(device, CollisionRectangleLeft.Width, CollisionRectangleLeft.Height, pixel => Color.Red);
+                t2 = GroundLayer.CreateTexture(device, CollisionRectangleRight.Width, CollisionRectangleRight.Height, pixel => Color.Green);
+            }
+            spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
+            spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
         }
     }
 }

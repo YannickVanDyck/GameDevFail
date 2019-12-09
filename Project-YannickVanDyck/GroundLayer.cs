@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Project_YannickVanDyck
 {
@@ -10,6 +11,9 @@ namespace Project_YannickVanDyck
         Animation LGround;
         private Rectangle collisionRectangleTop;
         private Rectangle collisionRectangleBottom;
+
+        Texture2D t1;
+        Texture2D t2;
 
         public GroundLayer(Texture2D _texture, Vector2 _position)
         {
@@ -26,9 +30,32 @@ namespace Project_YannickVanDyck
         public Rectangle CollisionRectangleTop { get => collisionRectangleTop; set => collisionRectangleTop = value; }
         public Rectangle CollisionRectangleBottom { get => collisionRectangleBottom; set => collisionRectangleBottom = value; }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDevice device)
         {
             spriteBatch.Draw(texture, position, LGround.currentFrame.SourceRectangle, Color.White);
+
+            if (t1 == null || t2 == null)
+            {
+                t1 = CreateTexture(device, CollisionRectangleBottom.Width, CollisionRectangleBottom.Height, pixel => Color.Red);
+                t2 = CreateTexture(device, CollisionRectangleBottom.Width, CollisionRectangleBottom.Height, pixel => Color.Green);
+            }
+            spriteBatch.Draw(t1, CollisionRectangleTop, Color.White);
+            spriteBatch.Draw(t2, CollisionRectangleBottom, Color.White);
+        }
+
+        public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Func<int, Color> paint)
+        {
+            //initialize a texture
+            Texture2D texture = new Texture2D(device, width, height);
+
+            Color[] data = new Color[width * height];
+            for (int pixel = 0; pixel < data.Length; pixel++)
+            {
+                data[pixel] = paint(pixel);
+            }
+
+            texture.SetData(data);
+            return texture;
         }
     }
 }

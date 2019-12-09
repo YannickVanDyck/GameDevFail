@@ -50,7 +50,7 @@ namespace Project_YannickVanDyck
             Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
             Texture2D _heroTextureRight = Content.Load<Texture2D>("WalkRight");
 
-            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(50, 300));
+            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(375, 300));
             hero._controls = new ZQSDControl();
 
             Texture2D _tile = Content.Load<Texture2D>("Tile");
@@ -104,8 +104,8 @@ namespace Project_YannickVanDyck
 
             spriteBatch.Begin();
 
-            hero.Draw(spriteBatch);
-            level1.DrawWorld(spriteBatch);
+            hero.Draw(spriteBatch, GraphicsDevice);
+            level1.DrawWorld(spriteBatch, GraphicsDevice);
 
             spriteBatch.End();
 

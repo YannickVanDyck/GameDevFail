@@ -15,7 +15,7 @@ namespace Project_YannickVanDyck
 
         public void CheckForCollision()
         {
-            //Console.WriteLine(Collection.Count);
+            Console.WriteLine(Collides.Count);
             foreach (ICollide item in Collides)
             {
                 if (Hero.CollisionRectangleLeft.Intersects(item.CollisionRectangleTop) && Hero.CollisionRectangleLeft.Intersects(item.CollisionRectangleBottom))
@@ -30,7 +30,7 @@ namespace Project_YannickVanDyck
                     Console.WriteLine("stop je kan niet meer naar Rechts!");
                 }
 
-                if (item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleLeft) && item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleRight))
+                if (item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleLeft) || item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleRight))
                 {
                     Hero.stopFall = true;
                     Console.WriteLine("stop je kan niet meer verder vallen!");

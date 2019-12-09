@@ -28,7 +28,7 @@ namespace Project_YannickVanDyck
             {0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
             {0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0 },
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
         };
 
@@ -53,11 +53,11 @@ namespace Project_YannickVanDyck
             CM = new CollisionManager(Hero, Collides);
         }
 
-        public void DrawWorld(SpriteBatch spriteBatch)
+        public void DrawWorld(SpriteBatch spriteBatch, GraphicsDevice device)
         {
             foreach (var item in Collides)
             {
-                item.Draw(spriteBatch);
+                item.Draw(spriteBatch, device);
             }
         }
 
