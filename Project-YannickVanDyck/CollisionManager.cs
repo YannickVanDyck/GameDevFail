@@ -23,25 +23,26 @@ namespace Project_YannickVanDyck
                 if (Hero.CollisionRectangleLeft.Intersects(item.CollisionRectangleTop) && Hero.CollisionRectangleLeft.Intersects(item.CollisionRectangleBottom))
                 {
                     Hero.stopLeft = true;
-                    Console.WriteLine("stop je kan niet meer naar links!");
+                    Console.WriteLine("stop, there is a block on your left!");
                 }
 
                 if (Hero.CollisionRectangleRight.Intersects(item.CollisionRectangleTop) && Hero.CollisionRectangleRight.Intersects(item.CollisionRectangleBottom))
                 {
                     Hero.stopRight = true;
-                    Console.WriteLine("stop je kan niet meer naar Rechts!");
+                    Console.WriteLine("stop, there is a block on your left!");
                 }
 
-                if (item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleLeft) || item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleRight))
+                if (item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleLeft) && item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleRight))
                 {
                     Hero.stopFall = true;
-                    Console.WriteLine("stop je kan niet meer verder vallen!");
+                    Hero.stopJump = false;
+                    Console.WriteLine("stop, your feet touch the ground!");
                 }
 
-                if (item.CollisionRectangleBottom.Intersects(Hero.CollisionRectangleLeft) && item.CollisionRectangleBottom.Intersects(Hero.CollisionRectangleRight))
+                if (item.CollisionRectangleBottom.Intersects(Hero.CollisionRectangleLeft) || item.CollisionRectangleBottom.Intersects(Hero.CollisionRectangleRight))
                 {
                     Hero.stopJump = true;
-                    Console.WriteLine("stop je kan niet meer verder springen!");
+                    Console.WriteLine("stop, your bumping your head!");
                 }
             }
         }

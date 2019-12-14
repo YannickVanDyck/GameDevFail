@@ -21,7 +21,7 @@ namespace Project_YannickVanDyck
                 _position = value;
                 Rectangle temp = CollisionRectangleLeft;
                 temp.Location = _position.ToPoint();
-                temp.X -= 3;
+                temp.X += 25;
                 CollisionRectangleLeft = temp;
                 temp.X += temp.Width;
                 CollisionRectangleRight = temp;
@@ -75,8 +75,8 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 54, 115);
-            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 56, 115);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 25, 115);
+            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 50, 115);
         }
         double xOffset = 0;
 
@@ -104,22 +104,22 @@ namespace Project_YannickVanDyck
                 stopLeft = false;
             }
 
-            if (_controls.up && !stopJump)
+            if (_controls.up && !stopJump) //Jump conditions
             {
-                velocity.Y = -7;
+                velocity.Y = -10;
                 stopFall = false;
                 stopJump = true;
             }
-            if (!_controls.up && !stopFall || _controls.up && stopJump) //position vervangen door hitboxes van grond
+
+            if (!_controls.up && !stopFall || _controls.up && stopJump || !_controls.up && stopJump) //Fall conditions
             {
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-
-            if (!_controls.up && stopFall || _controls.up && stopFall) //position vervangen door hitboxes van grond
+            if (!_controls.up && stopFall || _controls.up && stopFall) //Don't fall conditions
             {
                 velocity.Y = 0;
                 stopFall = false;
-                stopJump = false;
+                //stopJump = false;
             }
             position = temp;
         }

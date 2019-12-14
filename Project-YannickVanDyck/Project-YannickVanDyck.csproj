@@ -44,7 +44,9 @@
     <Compile Include="Animation.cs" />
     <Compile Include="AnimationFrame.cs" />
     <Compile Include="CollisionManager.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="Controls.cs" />
+    <Compile Include="Controls\Button.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GroundLayer.cs" />
     <Compile Include="Hero.cs" />
@@ -68,6 +70,9 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

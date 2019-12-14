@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project_YannickVanDyck.Controls;
+using System.Collections.Generic;
 
 namespace Project_YannickVanDyck
 {
@@ -16,6 +18,9 @@ namespace Project_YannickVanDyck
         GroundLayer ground;
         Level1 level1;
         CollisionManager Co;
+
+        private Color _backgroundColour = Color.CornflowerBlue;
+        private List<Component> _gameComponents;
 
         public Game1()
         {
@@ -33,7 +38,7 @@ namespace Project_YannickVanDyck
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -47,10 +52,20 @@ namespace Project_YannickVanDyck
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
+            Project_YannickVanDyck.Controls.Button randomButton = new Project_YannickVanDyck.Controls.Button(Content.Load<Texture2D>("Controls/Button"), Content.Load<SpriteFont>("Fonts/Font"))
+            {
+                
+            };
+
+            _gameComponents = new List<Component>()
+            {
+                
+            };
+
+            /*Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
             Texture2D _heroTextureRight = Content.Load<Texture2D>("WalkRight");
 
-            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(375, 300));
+            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(375, 250));
             hero._controls = new ZQSDControl();
 
             Texture2D _tile = Content.Load<Texture2D>("Tile");
@@ -60,7 +75,7 @@ namespace Project_YannickVanDyck
             level1.texture = _tile;
             level1.CreateWorld();
 
-            Co = new CollisionManager(hero, level1.Collides);
+            Co = new CollisionManager(hero, level1.Collides);*/
             // TODO: use this.Content to load your game content here
         }
 
