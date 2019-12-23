@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Project_YannickVanDyck;
 
-namespace Project_YannickVanDyck.Controls
+namespace Project_YannickVanDyck
 {
-    public class Button : Component
+    class Button : Component
     {
         #region Fields
 

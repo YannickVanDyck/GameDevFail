@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Project_YannickVanDyck.Controls;
+using System;
 using System.Collections.Generic;
 
 namespace Project_YannickVanDyck
@@ -19,8 +19,13 @@ namespace Project_YannickVanDyck
         Level1 level1;
         CollisionManager Co;
 
-        private Color _backgroundColour = Color.CornflowerBlue;
-        private List<Component> _gameComponents;
+        private State _currentState;
+        private State _nextState;
+
+        public void ChangeState(State state)
+        {
+            _nextState = state;
+        }
 
         public Game1()
         {
@@ -52,21 +57,13 @@ namespace Project_YannickVanDyck
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Project_YannickVanDyck.Controls.Button randomButton = new Project_YannickVanDyck.Controls.Button(Content.Load<Texture2D>("Controls/Button"), Content.Load<SpriteFont>("Fonts/Font"))
-            {
-                
-            };
+            _currentState = new MenuState(this, graphics.GraphicsDevice, Content);
 
-            _gameComponents = new List<Component>()
-            {
-                
-            };
-
-            /*Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
+            Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
             Texture2D _heroTextureRight = Content.Load<Texture2D>("WalkRight");
 
             hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(375, 250));
-            hero._controls = new ZQSDControl();
+            hero._controls = new ZQSDControl(); 
 
             Texture2D _tile = Content.Load<Texture2D>("Tile");
             ground = new GroundLayer(_tile, new Vector2(0, 0));
@@ -75,7 +72,7 @@ namespace Project_YannickVanDyck
             level1.texture = _tile;
             level1.CreateWorld();
 
-            Co = new CollisionManager(hero, level1.Collides);*/
+            Co = new CollisionManager(hero, level1.Collides);
             // TODO: use this.Content to load your game content here
         }
 
@@ -98,11 +95,22 @@ namespace Project_YannickVanDyck
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            
+            if (_nextState != null)
+            {
+                _currentState = _nextState;
+                _nextState = null;
+            }
 
-            hero.Update(gameTime);
+            _currentState.Update(gameTime);
 
-            level1.Update(gameTime);
+            _currentState.PostUpdate(gameTime); //doet niks
+
+            if (_currentState is GameState)
+            {
+                hero.Update(gameTime);
+
+                level1.Update(gameTime);
+            }
 
             base.Update(gameTime);
 
@@ -117,12 +125,17 @@ namespace Project_YannickVanDyck
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            _currentState.Draw(gameTime, spriteBatch);
 
-            hero.Draw(spriteBatch, GraphicsDevice);
-            level1.DrawWorld(spriteBatch, GraphicsDevice);
+            if (_currentState is GameState)
+            {
+                spriteBatch.Begin();
 
-            spriteBatch.End();
+                hero.Draw(spriteBatch, GraphicsDevice);
+                level1.DrawWorld(spriteBatch, GraphicsDevice);
+
+                spriteBatch.End();
+            }
 
             base.Draw(gameTime);
         }

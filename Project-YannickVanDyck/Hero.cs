@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Web.UI.WebControls;
 
 namespace Project_YannickVanDyck
 {
@@ -7,6 +8,8 @@ namespace Project_YannickVanDyck
     {
         private Texture2D textureLeft;
         private Texture2D textureRight;
+
+        public Game1 _game;
         
         
         private Vector2 _position { get; set; }
@@ -46,8 +49,6 @@ namespace Project_YannickVanDyck
 
         Texture2D t1;
         Texture2D t2;
-
-        
 
 
         public Hero(Texture2D _textureLeft, Texture2D _textureRight, Vector2 _position)
