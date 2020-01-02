@@ -62,7 +62,7 @@ namespace Project_YannickVanDyck
             Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
             Texture2D _heroTextureRight = Content.Load<Texture2D>("WalkRight");
 
-            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(375, 250));
+            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(100, 700));
             hero._controls = new ZQSDControl(); 
 
             Texture2D _tile = Content.Load<Texture2D>("Tile");
@@ -135,6 +135,12 @@ namespace Project_YannickVanDyck
                 level1.DrawWorld(spriteBatch, GraphicsDevice);
 
                 spriteBatch.End();
+            }
+
+            if (hero.isDead)
+            {
+                LoadContent();
+                ChangeState(new DeadState(this, GraphicsDevice, Content));
             }
 
             base.Draw(gameTime);

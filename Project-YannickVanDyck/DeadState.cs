@@ -39,11 +39,6 @@ namespace Project_YannickVanDyck
             };
         }
 
-        private void QuitGameButton_Click(object sender, EventArgs e)
-        {
-            _game.Exit();
-        }
-
         private void MenuButton_Click(object sender, EventArgs e)
         {
             _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));

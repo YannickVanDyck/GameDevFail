@@ -47,6 +47,8 @@ namespace Project_YannickVanDyck
         public bool stopJump = false;
         public bool stopFall = false;
 
+        public bool isDead = false;
+
         Texture2D t1;
         Texture2D t2;
 
@@ -121,6 +123,11 @@ namespace Project_YannickVanDyck
                 velocity.Y = 0;
                 stopFall = false;
                 //stopJump = false;
+            }
+
+            if (temp.Y > 1080)
+            {
+                isDead = true;
             }
             position = temp;
         }
