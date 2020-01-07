@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:2d-character-sprite-right-11562870067mxbxsjsdnf.png;WalkRight.png
 
+#begin 3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:3.png
+
 #begin Controls/Button.png
 /importer:TextureImporter
 /processor:TextureProcessor

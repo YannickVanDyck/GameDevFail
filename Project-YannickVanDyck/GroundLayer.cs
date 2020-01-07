@@ -32,7 +32,7 @@ namespace Project_YannickVanDyck
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice device)
         {
-            spriteBatch.Draw(texture, position, LGround.currentFrame.SourceRectangle, Color.White);
+            spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, 32, 32), LGround.currentFrame.SourceRectangle, Color.White);
 
             if (t1 == null || t2 == null)
             {

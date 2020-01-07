@@ -9,6 +9,7 @@ namespace Project_YannickVanDyck
         public bool up { get; set; }
         public bool down { get; set; }
         public bool idleLeft { get; set; }
+        public bool sprint { get; set; }
         public abstract void Update();
     }
 
@@ -36,6 +37,15 @@ namespace Project_YannickVanDyck
             if (stateKey.IsKeyUp(Keys.D))
             {
                 right = false;
+            }
+
+            if (stateKey.IsKeyDown(Keys.LeftShift))
+            {
+                sprint = true;
+            }
+            if (stateKey.IsKeyUp(Keys.LeftShift))
+            {
+                sprint = false;
             }
 
             if (stateKey.IsKeyDown(Keys.Z))
