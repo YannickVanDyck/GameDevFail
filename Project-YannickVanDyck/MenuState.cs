@@ -54,7 +54,7 @@ namespace Project_YannickVanDyck
 
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
-            _game.ChangeState(new DeadState(_game, _graphicsDevice, _content));
+            // Do Nothing
         }
 
         private void QuitGameButton_Click(object sender, EventArgs e)

@@ -49,6 +49,9 @@ namespace Project_YannickVanDyck
 
         public bool isDead = false;
 
+        public bool nextLevel = false;
+        int test = 0;
+
         Texture2D t1;
         Texture2D t2;
 
@@ -78,8 +81,8 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 25, 115);
-            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 50, 115);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 66);
+            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 5, 115);
         }
         double xOffset = 0;
 
@@ -96,38 +99,65 @@ namespace Project_YannickVanDyck
             temp.X += velocity.X;
             temp.Y += velocity.Y;
 
-            if (_controls.left && !stopLeft)
+            if (_controls.left && !stopLeft) // Move to the left
             {
                 temp.X -= 3;
                 stopRight = false;
             }
-            if (_controls.right && !stopRight)
+            if (_controls.right && !stopRight) // Move to the right
             {
                 temp.X += 3;
                 stopLeft = false;
             }
 
-            if (_controls.up && !stopJump) //Jump conditions
+            if (_controls.sprint && _controls.left && !stopLeft) // Sprint left
             {
-                velocity.Y = -10;
-                stopFall = false;
-                stopJump = true;
+                temp.X -= 3.5f;
+                stopRight = false;
+            }
+            if (_controls.sprint && _controls.right && !stopRight) // Sprint right
+            {
+                temp.X += 3.5f;
+                stopLeft = false;
             }
 
-            if (!_controls.up && !stopFall || _controls.up && stopJump || !_controls.up && stopJump) //Fall conditions
+            if (stopLeft) // zorgt ervoor als je tegen een blok loopt je niet eerst naar rechts moet om over deze blok te lopen
+            {
+                stopLeft = false;
+            }
+            if (stopRight)  // zorgt ervoor als je tegen een blok loopt je niet eerst naar links moet om over deze blok te lopen
+            {
+                stopRight = false;
+            }
+
+            if (_controls.up && !stopJump) //Jump conditions
+            {
+                test++;
+                velocity.Y = -5;
+                stopFall = false;
+                stopJump = true; // If you're in the air you can't jump
+            }
+
+            if (!stopFall || stopJump) //Fall conditions
             {
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (!_controls.up && stopFall || _controls.up && stopFall) //Don't fall conditions
+
+            if (stopFall) //Don't fall conditions
             {
                 velocity.Y = 0;
-                stopFall = false;
-                //stopJump = false;
+                stopFall = false; // Zorgt ervoor dat als je van een blok stapt je valt en niet blijft zweven
+                stopJump = false;
             }
 
             if (temp.Y > 1080)
             {
                 isDead = true;
+            }
+
+            if (test > 5)
+            {
+                nextLevel = true;
             }
             position = temp;
         }
@@ -137,27 +167,33 @@ namespace Project_YannickVanDyck
         {
             if (!_controls.left && !_controls.right && !_controls.idleLeft)
             {
-                spriteBatch.Draw(textureRight, position, animationIdle.currentFrame.SourceRectangle, Color.White);
+                spriteBatch.Draw(textureRight, new Rectangle((int)position.X, (int)position.Y, 41, 66), animationIdle.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureRight, position, animationIdle.currentFrame.SourceRectangle, Color.White);
             }
             if (!_controls.left && !_controls.right && _controls.idleLeft)
             {
-                spriteBatch.Draw(textureLeft, position, animationIdle.currentFrame.SourceRectangle, Color.White);
+                spriteBatch.Draw(textureLeft, new Rectangle((int)position.X, (int)position.Y, 41, 66), animationIdle.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureLeft, position, animationIdle.currentFrame.SourceRectangle, Color.White);
             }
             if (_controls.left && !_controls.up)
             {
-                spriteBatch.Draw(textureLeft, position, animationMove.currentFrame.SourceRectangle, Color.White);
+                spriteBatch.Draw(textureLeft, new Rectangle((int)position.X, (int)position.Y, 55, 66), animationMove.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureLeft, position, animationMove.currentFrame.SourceRectangle, Color.White);
             }
             if (_controls.right && !_controls.up)
             {
-                spriteBatch.Draw(textureRight, position, animationMove.currentFrame.SourceRectangle, Color.White);
+                spriteBatch.Draw(textureRight, new Rectangle((int)position.X, (int)position.Y, 55, 66), animationMove.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureRight, position, animationMove.currentFrame.SourceRectangle, Color.White);
             }
             if (_controls.up && _controls.left)
             {
-                spriteBatch.Draw(textureLeft, position, animationJump.currentFrame.SourceRectangle, Color.White);
+                spriteBatch.Draw(textureLeft, new Rectangle((int)position.X, (int)position.Y, 55, 66), animationJump.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureLeft, position, animationJump.currentFrame.SourceRectangle, Color.White);
             }
             if (_controls.up && _controls.right)
             {
-                spriteBatch.Draw(textureRight, position, animationJump.currentFrame.SourceRectangle, Color.White);
+                spriteBatch.Draw(textureRight, new Rectangle((int)position.X, (int)position.Y, 55, 66), animationJump.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureRight, position, animationJump.currentFrame.SourceRectangle, Color.White);
             }
 
             if (t1 == null || t2 == null)
@@ -165,8 +201,8 @@ namespace Project_YannickVanDyck
                 t1 = GroundLayer.CreateTexture(device, CollisionRectangleLeft.Width, CollisionRectangleLeft.Height, pixel => Color.Red);
                 t2 = GroundLayer.CreateTexture(device, CollisionRectangleRight.Width, CollisionRectangleRight.Height, pixel => Color.Green);
             }
-            //spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
-            //spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
+            spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
+            spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
         }
     }
 }

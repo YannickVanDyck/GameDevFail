@@ -16,8 +16,11 @@ namespace Project_YannickVanDyck
         Texture2D _heroTexture;
         Hero hero;
         GroundLayer ground;
+        GroundLayer ground2;
         Level1 level1;
+        Level2 level2;
         CollisionManager Co;
+        CollisionManager Co2;
 
         private State _currentState;
         private State _nextState;
@@ -68,11 +71,19 @@ namespace Project_YannickVanDyck
             Texture2D _tile = Content.Load<Texture2D>("Tile");
             ground = new GroundLayer(_tile, new Vector2(0, 0));
 
+            Texture2D _tile2 = Content.Load<Texture2D>("3");
+            ground2 = new GroundLayer(_tile2, new Vector2(0, 0));
+
             level1 = new Level1(hero);
             level1.texture = _tile;
             level1.CreateWorld();
 
+            level2 = new Level2(hero);
+            level2.texture = _tile2;
+            level2.CreateWorld();
+
             Co = new CollisionManager(hero, level1.Collides);
+            Co2 = new CollisionManager(hero, level2.Collides);
             // TODO: use this.Content to load your game content here
         }
 
@@ -112,6 +123,17 @@ namespace Project_YannickVanDyck
                 level1.Update(gameTime);
             }
 
+            /*
+            hij tekent het 2de level gewoon boven op het 1ste level
+
+            if (_currentState is GameState && hero.nextLevel)
+            {
+                hero.Update(gameTime);
+
+                level2.Update(gameTime);
+            }
+            */
+
             base.Update(gameTime);
 
 
@@ -136,6 +158,19 @@ namespace Project_YannickVanDyck
 
                 spriteBatch.End();
             }
+
+            /*
+            //hij tekent het 2de level gewoon boven op het 1ste level 
+            
+            if (_currentState is GameState && hero.nextLevel)
+            {
+                spriteBatch.Begin();
+                hero.Draw(spriteBatch, GraphicsDevice);
+                level2.DrawWorld(spriteBatch, GraphicsDevice);
+
+                spriteBatch.End();
+            }
+            */
 
             if (hero.isDead)
             {
