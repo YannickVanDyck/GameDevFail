@@ -65,7 +65,7 @@ namespace Project_YannickVanDyck
             Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
             Texture2D _heroTextureRight = Content.Load<Texture2D>("WalkRight");
 
-            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(100, 700));
+            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(100, 900));
             hero._controls = new ZQSDControl(); 
 
             Texture2D _tile = Content.Load<Texture2D>("Tile");
@@ -84,6 +84,7 @@ namespace Project_YannickVanDyck
 
             Co = new CollisionManager(hero, level1.Collides);
             Co2 = new CollisionManager(hero, level2.Collides);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -121,18 +122,24 @@ namespace Project_YannickVanDyck
                 hero.Update(gameTime);
 
                 level1.Update(gameTime);
+
+                if (hero.nextLevel)
+                {
+                    ChangeState(new GameState2(this, GraphicsDevice, Content));
+                }
             }
 
-            /*
-            hij tekent het 2de level gewoon boven op het 1ste level
+            
+            //hij tekent het 2de level gewoon boven op het 1ste level
 
-            if (_currentState is GameState && hero.nextLevel)
+            if (_currentState is GameState2)
             {
                 hero.Update(gameTime);
 
                 level2.Update(gameTime);
             }
-            */
+            
+            
 
             base.Update(gameTime);
 
@@ -159,10 +166,10 @@ namespace Project_YannickVanDyck
                 spriteBatch.End();
             }
 
-            /*
+            
             //hij tekent het 2de level gewoon boven op het 1ste level 
             
-            if (_currentState is GameState && hero.nextLevel)
+            if (_currentState is GameState2)
             {
                 spriteBatch.Begin();
                 hero.Draw(spriteBatch, GraphicsDevice);
@@ -170,7 +177,8 @@ namespace Project_YannickVanDyck
 
                 spriteBatch.End();
             }
-            */
+            
+            
 
             if (hero.isDead)
             {

@@ -24,9 +24,9 @@ namespace Project_YannickVanDyck
                 _position = value;
                 Rectangle temp = CollisionRectangleLeft;
                 temp.Location = _position.ToPoint();
-                temp.X += 25;
+                temp.X += 0;
                 CollisionRectangleLeft = temp;
-                temp.X += temp.Width;
+                temp.X += temp.Width + 7;
                 CollisionRectangleRight = temp;
             }
         }
@@ -81,8 +81,8 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 66);
-            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 5, 115);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 60);
+            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 0, 0);
         }
         double xOffset = 0;
 
@@ -112,27 +112,26 @@ namespace Project_YannickVanDyck
 
             if (_controls.sprint && _controls.left && !stopLeft) // Sprint left
             {
-                temp.X -= 3.5f;
+                temp.X -= 1;
                 stopRight = false;
             }
             if (_controls.sprint && _controls.right && !stopRight) // Sprint right
             {
-                temp.X += 3.5f;
+                temp.X += 1;
                 stopLeft = false;
             }
 
-            if (stopLeft) // zorgt ervoor als je tegen een blok loopt je niet eerst naar rechts moet om over deze blok te lopen
+            if (stopLeft) // zorgt ervoor als je tegen een blok loopt je niet eerst naar rechts moet om over deze blok te springen
             {
                 stopLeft = false;
             }
-            if (stopRight)  // zorgt ervoor als je tegen een blok loopt je niet eerst naar links moet om over deze blok te lopen
+            if (stopRight)  // zorgt ervoor als je tegen een blok loopt je niet eerst naar links moet om over deze blok te springen
             {
                 stopRight = false;
             }
 
             if (_controls.up && !stopJump) //Jump conditions
             {
-                test++;
                 velocity.Y = -5;
                 stopFall = false;
                 stopJump = true; // If you're in the air you can't jump

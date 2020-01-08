@@ -50,6 +50,7 @@
     <Compile Include="DeadState.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="GameState2.cs" />
     <Compile Include="GroundLayer.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="ICollide.cs" />

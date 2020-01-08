@@ -32,7 +32,7 @@ namespace Project_YannickVanDyck
                     Console.WriteLine("stop, there is a block on your left!");
                 }
 
-                if (item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleLeft) && item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleRight))
+                if (item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleLeft) || item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleRight))
                 {
                     Hero.stopFall = true;
                     Hero.stopJump = false;

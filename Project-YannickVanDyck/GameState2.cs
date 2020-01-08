@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project_YannickVanDyck
 {
-    class GameState : State
+    class GameState2 : State
     {
-        public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
+        public GameState2(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
         }
 
@@ -26,6 +25,6 @@ namespace Project_YannickVanDyck
 
         public override void Update(GameTime gameTime)
         {
-        }        
+        }
     }
 }
