@@ -8,6 +8,7 @@ namespace Project_YannickVanDyck
         Rectangle CollisionRectangleTop { get; set; } //iedereen die van ICollide overerft moet een CollisionRectangle hebben
         Rectangle CollisionRectangleBottom { get; set; }
 
-        void Draw(SpriteBatch spriteBatch, GraphicsDevice dev);
+        void Draw(SpriteBatch spriteBatch, GraphicsDevice device);
+        void Update(GameTime gameTime);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,12 @@ namespace Project_YannickVanDyck
     class Level2
     {
         public Texture2D texture;
+
         Hero Hero;
+        Game1 _game;
+        ContentManager _content;
+        GraphicsDevice _graphicsDevice;
+
         public Rectangle CollisionRectangle;
         CollisionManager CM;
         public List<ICollide> Collides = new List<ICollide>();
@@ -51,9 +57,12 @@ namespace Project_YannickVanDyck
             { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1 },
         };
 
-        public Level2(Hero hero)
+        public Level2(Hero hero, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
         {
             Hero = hero;
+            _game = game;
+            _content = content;
+            _graphicsDevice = graphicsDevice;
         }
 
         public int test = 0;
@@ -69,7 +78,7 @@ namespace Project_YannickVanDyck
                     }
                 }
             }
-            CM = new CollisionManager(Hero, Collides);
+            CM = new CollisionManager(Hero, Collides,_game, _content, _graphicsDevice);
         }
 
         public void DrawWorld(SpriteBatch spriteBatch, GraphicsDevice device)

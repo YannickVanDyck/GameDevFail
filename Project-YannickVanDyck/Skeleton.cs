@@ -27,7 +27,7 @@ namespace Project_YannickVanDyck
                 temp.Location = _position.ToPoint();
                 temp.X += 0;
                 CollisionRectangleTop = temp;
-                temp.Y += temp.Height + 7;
+                temp.Y += temp.Height + 2;
                 CollisionRectangleBottom = temp;
             }
         }
@@ -70,7 +70,7 @@ namespace Project_YannickVanDyck
             animationMove.AddFrame(new Rectangle(264, 0, 22, 33));
 
             collisionRectangleTop = new Rectangle((int)position.X, (int)position.Y, 22, 15);
-            collisionRectangleBottom = new Rectangle((int)position.X, (int)position.Y + 18, 22, 15);
+            collisionRectangleBottom = new Rectangle((int)position.X, (int)position.Y + 17, 22, 15);
         }
 
         public Rectangle CollisionRectangleTop { get => collisionRectangleTop; set => collisionRectangleTop = value; }
@@ -81,15 +81,15 @@ namespace Project_YannickVanDyck
             animationMove.Update(gameTime);
 
             Vector2 temp = position;
-            //temp.X += velocity.X;
-            //temp.Y += velocity.Y;
+            /*temp.X += velocity.X;
+            temp.Y += velocity.Y;*/
 
-            if (position.X < 200)
+            if (position.X < 100)
             {
                 right = true;
                 left = false;
             }
-            if (position.X > 500)
+            if (position.X > 700)
             {
                 right = false;
                 left = true;
@@ -115,6 +115,9 @@ namespace Project_YannickVanDyck
             if (left == true)
             {
                 spriteBatch.Draw(textureLeft, position, animationMove.currentFrame.SourceRectangle, Color.White);
+            } else
+            {
+                spriteBatch.Draw(textureRight, position, animationMove.currentFrame.SourceRectangle, Color.White);
             }
 
 
@@ -123,8 +126,8 @@ namespace Project_YannickVanDyck
                 t1 = GroundLayer.CreateTexture(device, CollisionRectangleTop.Width, CollisionRectangleTop.Height, pixel => Color.Red);
                 t2 = GroundLayer.CreateTexture(device, CollisionRectangleBottom.Width, CollisionRectangleBottom.Height, pixel => Color.Green);
             }
-            spriteBatch.Draw(t1, CollisionRectangleTop, Color.White);
-            spriteBatch.Draw(t2, CollisionRectangleBottom, Color.White);
+            //spriteBatch.Draw(t1, CollisionRectangleTop, Color.White);
+            //spriteBatch.Draw(t2, CollisionRectangleBottom, Color.White);
         }
     }
 }

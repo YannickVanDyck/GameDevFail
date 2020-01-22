@@ -70,7 +70,7 @@ namespace Project_YannickVanDyck
 
             Texture2D _skeletonLeft = Content.Load<Texture2D>("SkeletonLeft");
             Texture2D _skeletonRight = Content.Load<Texture2D>("SkeletonRight");
-            skeleton = new Skeleton(_skeletonLeft, _skeletonRight, new Vector2(190, 500));
+            skeleton = new Skeleton(_skeletonLeft, _skeletonRight, new Vector2(0, 0));
 
             Texture2D _tile = Content.Load<Texture2D>("Tile");
             ground = new GroundLayer(_tile, new Vector2(0, 0));
@@ -78,16 +78,18 @@ namespace Project_YannickVanDyck
             Texture2D _tile2 = Content.Load<Texture2D>("3");
             ground2 = new GroundLayer(_tile2, new Vector2(0, 0));
 
-            level1 = new Level1(hero);
+            level1 = new Level1(hero, this, Content, GraphicsDevice);
             level1.texture = _tile;
+            level1.skeletonLeftTexture = _skeletonLeft;
+            level1.skeletonRightTexture = _skeletonRight;
             level1.CreateWorld();
 
-            level2 = new Level2(hero);
+            level2 = new Level2(hero, this, Content, GraphicsDevice);
             level2.texture = _tile2;
             level2.CreateWorld();
 
-            Co = new CollisionManager(hero, level1.Collides);
-            Co2 = new CollisionManager(hero, level2.Collides);
+            Co = new CollisionManager(hero, level1.Collides, this, Content, GraphicsDevice);
+            Co2 = new CollisionManager(hero, level2.Collides, this, Content, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -124,7 +126,6 @@ namespace Project_YannickVanDyck
             if (_currentState is GameState)
             {
                 hero.Update(gameTime);
-                skeleton.Update(gameTime);
 
                 level1.Update(gameTime);
 
@@ -166,7 +167,6 @@ namespace Project_YannickVanDyck
                 spriteBatch.Begin();
 
                 hero.Draw(spriteBatch, GraphicsDevice);
-                skeleton.Draw(spriteBatch, GraphicsDevice);
                 level1.DrawWorld(spriteBatch, GraphicsDevice);
 
                 spriteBatch.End();

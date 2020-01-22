@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project_YannickVanDyck
 {
-    interface ICollideHero
+    public interface ICollideHero
     {
         Rectangle CollisionRectangleLeft { get; set; } //iedereen die van ICollide overerft moet een CollisionRectangle hebben
         Rectangle CollisionRectangleRight { get; set; }
