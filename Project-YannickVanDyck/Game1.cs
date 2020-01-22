@@ -17,6 +17,7 @@ namespace Project_YannickVanDyck
         Hero hero;
         GroundLayer ground;
         GroundLayer ground2;
+        Skeleton skeleton;
         Level1 level1;
         Level2 level2;
         CollisionManager Co;
@@ -64,9 +65,12 @@ namespace Project_YannickVanDyck
 
             Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
             Texture2D _heroTextureRight = Content.Load<Texture2D>("WalkRight");
-
             hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(100, 900));
-            hero._controls = new ZQSDControl(); 
+            hero._controls = new ZQSDControl();
+
+            Texture2D _skeletonLeft = Content.Load<Texture2D>("SkeletonLeft");
+            Texture2D _skeletonRight = Content.Load<Texture2D>("SkeletonRight");
+            skeleton = new Skeleton(_skeletonLeft, _skeletonRight, new Vector2(190, 500));
 
             Texture2D _tile = Content.Load<Texture2D>("Tile");
             ground = new GroundLayer(_tile, new Vector2(0, 0));
@@ -120,6 +124,7 @@ namespace Project_YannickVanDyck
             if (_currentState is GameState)
             {
                 hero.Update(gameTime);
+                skeleton.Update(gameTime);
 
                 level1.Update(gameTime);
 
@@ -161,6 +166,7 @@ namespace Project_YannickVanDyck
                 spriteBatch.Begin();
 
                 hero.Draw(spriteBatch, GraphicsDevice);
+                skeleton.Draw(spriteBatch, GraphicsDevice);
                 level1.DrawWorld(spriteBatch, GraphicsDevice);
 
                 spriteBatch.End();

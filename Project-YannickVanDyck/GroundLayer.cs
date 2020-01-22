@@ -43,7 +43,7 @@ namespace Project_YannickVanDyck
             spriteBatch.Draw(t2, CollisionRectangleBottom, Color.White);
         }
 
-        public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Func<int, Color> paint)
+        public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Func<int, Color> paint)  // tekenen van collisionrectangles
         {
             //initialize a texture
             Texture2D texture = new Texture2D(device, width, height);
