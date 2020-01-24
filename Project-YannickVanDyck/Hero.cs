@@ -56,11 +56,12 @@ namespace Project_YannickVanDyck
         Texture2D t2;
 
 
-        public Hero(Texture2D _textureLeft, Texture2D _textureRight, Vector2 _position)
+        public Hero(Texture2D _textureLeft, Texture2D _textureRight, Vector2 _position, Game1 game)
         {
             textureLeft = _textureLeft;
             textureRight = _textureRight;
             position = _position;
+            _game = game;
 
             animationIdle = new Animation();
             animationIdle.AddFrame(new Rectangle(0, 0, 82, 132));
@@ -151,7 +152,7 @@ namespace Project_YannickVanDyck
 
             if (temp.Y > 1080)
             {
-                isDead = true;
+                _game.Load();
             }
 
             if (test > 5)

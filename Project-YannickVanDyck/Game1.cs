@@ -65,7 +65,7 @@ namespace Project_YannickVanDyck
 
             Texture2D _heroTextureLeft = Content.Load<Texture2D>("WalkLeft");
             Texture2D _heroTextureRight = Content.Load<Texture2D>("WalkRight");
-            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(100, 900));
+            hero = new Hero(_heroTextureLeft, _heroTextureRight, new Vector2(100, 900), this);
             hero._controls = new ZQSDControl();
 
             Texture2D _skeletonLeft = Content.Load<Texture2D>("SkeletonLeft");
@@ -90,8 +90,8 @@ namespace Project_YannickVanDyck
             level2.texture = _tile2;
             level2.CreateWorld();
 
-            Co = new CollisionManager(hero, level1.Collides,level1.Skeletons, level1.Hero, this, Content, GraphicsDevice);
-            Co2 = new CollisionManager(hero, level2.Collides,level2.Skeletons, level2.Hero, this, Content, GraphicsDevice);
+            Co = new CollisionManager(level1.Collides,level1.Skeletons, level1.Hero, this, Content, GraphicsDevice);
+            Co2 = new CollisionManager(level2.Collides,level2.Skeletons, level2.Hero, this, Content, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -186,16 +186,19 @@ namespace Project_YannickVanDyck
 
                 spriteBatch.End();
             }
-            
-            
 
-            if (hero.isDead)
+            /*if (hero.isDead)
             {
                 LoadContent();
                 ChangeState(new DeadState(this, GraphicsDevice, Content));
-            }
+            }*/
 
             base.Draw(gameTime);
+        }
+
+        public void Load()
+        {
+            LoadContent();
         }
     }
 }

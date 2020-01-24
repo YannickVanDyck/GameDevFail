@@ -88,11 +88,11 @@ namespace Project_YannickVanDyck
                     }
                     if (tileArray[x, y] == 3)
                     {
-                        Hero.Add(new Hero(heroLeftTexture, heroRightTexture, new Vector2(y * 32, x * 32)));
+                        Hero.Add(new Hero(heroLeftTexture, heroRightTexture, new Vector2(y * 32, x * 32), _game));
                     }
                 }
             }
-            CM = new CollisionManager(HeroHard, Collides, Skeletons, Hero, _game, _content, _graphicsDevice);
+            CM = new CollisionManager(Collides, Skeletons, Hero, _game, _content, _graphicsDevice);
         }
 
         public void DrawWorld(SpriteBatch spriteBatch, GraphicsDevice device)

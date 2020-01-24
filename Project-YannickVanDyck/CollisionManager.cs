@@ -18,12 +18,11 @@ namespace Project_YannickVanDyck
         GraphicsDevice _graphicsDevice;
 
 
-        public CollisionManager(Hero heroHard, List<ICollide> bloks, List<ICollideSkeleton> skeletons, List<ICollideHero> hero, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
+        public CollisionManager(List<ICollide> bloks, List<ICollideSkeleton> skeletons, List<ICollideHero> hero, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
         {
             Collides = bloks;
             Skeletons = skeletons;
             Hero = hero;
-            HeroHard = heroHard;
             Game = game;
 
             _content = content;
@@ -85,7 +84,7 @@ namespace Project_YannickVanDyck
 
                         if (hero.CollisionRectangleLeft.Intersects(skeleton.CollisionRectangleRight) || hero.CollisionRectangleRight.Intersects(skeleton.CollisionRectangleLeft))
                         {
-                            HeroHard.isDead = true;
+                            Game.Load();
                         }
                     }
                 }
