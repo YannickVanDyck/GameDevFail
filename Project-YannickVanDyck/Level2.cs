@@ -12,6 +12,8 @@ namespace Project_YannickVanDyck
     class Level2
     {
         public Texture2D texture;
+        public Texture2D skeletonLeftTexture;
+        public Texture2D skeletonRightTexture;
 
         Hero Hero;
         Game1 _game;
@@ -20,7 +22,10 @@ namespace Project_YannickVanDyck
 
         public Rectangle CollisionRectangle;
         CollisionManager CM;
+
         public List<ICollide> Collides = new List<ICollide>();
+        public List<ICollideSkeleton> Skeletons = new List<ICollideSkeleton>();
+
         public byte[,] tileArray = new Byte[,]
         {
             { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
@@ -76,9 +81,13 @@ namespace Project_YannickVanDyck
                     {
                         Collides.Add(new GroundLayer(texture, new Vector2(y * 32, x * 32)));
                     }
+                    if (tileArray[x, y] == 2)
+                    {
+                        Skeletons.Add(new Skeleton(skeletonLeftTexture, skeletonRightTexture, new Vector2(y * 32, x * 32)));
+                    }
                 }
             }
-            CM = new CollisionManager(Hero, Collides,_game, _content, _graphicsDevice);
+            CM = new CollisionManager(Hero, Collides, Skeletons, _game, _content, _graphicsDevice);
         }
 
         public void DrawWorld(SpriteBatch spriteBatch, GraphicsDevice device)

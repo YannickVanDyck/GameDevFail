@@ -8,16 +8,19 @@ namespace Project_YannickVanDyck
     class CollisionManager
     {
         List<ICollide> Collides;
+        List<ICollideSkeleton> Skeletons;
         Hero Hero;
+        ICollide collide;
         Game1 Game;
 
         ContentManager _content;
         GraphicsDevice _graphicsDevice;
 
 
-        public CollisionManager(Hero hero, List<ICollide> collection, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
+        public CollisionManager(Hero hero, List<ICollide> bloks, List<ICollideSkeleton> skeletons, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
         {
-            Collides = collection;
+            Collides = bloks;
+            Skeletons = skeletons;
             Hero = hero;
             Game = game;
 
@@ -34,22 +37,12 @@ namespace Project_YannickVanDyck
             {
                 if (Hero.CollisionRectangleLeft.Intersects(item.CollisionRectangleTop) && Hero.CollisionRectangleLeft.Intersects(item.CollisionRectangleBottom))
                 {
-                    if (item is Skeleton)
-                    {
-                        Hero.isDead = true;
-                    }
-
                     Hero.stopLeft = true;
                     Console.WriteLine("stop, there is a block on your left!");
                 }
 
                 if (Hero.CollisionRectangleRight.Intersects(item.CollisionRectangleTop) && Hero.CollisionRectangleRight.Intersects(item.CollisionRectangleBottom))
                 {
-                    if (item is Skeleton)
-                    {
-                        Hero.isDead = true;
-                    }
-
                     Hero.stopRight = true;
                     Console.WriteLine("stop, there is a block on your Right!");
                 }
@@ -65,6 +58,19 @@ namespace Project_YannickVanDyck
                 {
                     Hero.stopJump = true;
                     Console.WriteLine("stop, your bumping your head!");
+                }
+
+                foreach (Skeleton item2 in Skeletons)
+                {
+                    if (item2.CollisionRectangleLeft.Intersects(item.CollisionRectangleTop) || item2.CollisionRectangleRight.Intersects(item.CollisionRectangleTop))
+                    {
+                        item2.stopFall = true;
+                    }
+
+                    if (Hero.CollisionRectangleLeft.Intersects(item2.CollisionRectangleRight) || Hero.CollisionRectangleRight.Intersects(item2.CollisionRectangleLeft))
+                    {
+                        Hero.isDead = true;
+                    }
                 }
             }
         }

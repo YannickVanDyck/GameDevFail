@@ -200,8 +200,8 @@ namespace Project_YannickVanDyck
                 t1 = GroundLayer.CreateTexture(device, CollisionRectangleLeft.Width, CollisionRectangleLeft.Height, pixel => Color.Red);
                 t2 = GroundLayer.CreateTexture(device, CollisionRectangleRight.Width, CollisionRectangleRight.Height, pixel => Color.Green);
             }
-            spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
-            spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
+            //spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
+            //spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
         }
     }
 }

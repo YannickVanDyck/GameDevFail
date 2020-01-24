@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project_YannickVanDyck
 {
-    class Skeleton : ICollide
+    public class Skeleton : ICollideSkeleton
     {
         private Texture2D textureLeft;
         private Texture2D textureRight;
@@ -23,12 +23,12 @@ namespace Project_YannickVanDyck
             set
             {
                 _position = value;
-                Rectangle temp = CollisionRectangleTop;
+                Rectangle temp = CollisionRectangleLeft;
                 temp.Location = _position.ToPoint();
                 temp.X += 0;
-                CollisionRectangleTop = temp;
-                temp.Y += temp.Height + 2;
-                CollisionRectangleBottom = temp;
+                CollisionRectangleLeft = temp;
+                temp.X += temp.Width + 2;
+                CollisionRectangleRight = temp;
             }
         }
 
@@ -39,8 +39,13 @@ namespace Project_YannickVanDyck
         bool left = false;
         bool right = false;
 
-        private Rectangle collisionRectangleTop;
-        private Rectangle collisionRectangleBottom;
+        public bool stopFall = false;
+
+        public Vector2 velocity;
+        public float gravity = 9.8f;
+
+        private Rectangle collisionRectangleLeft;
+        private Rectangle collisionRectangleRight;
 
         Texture2D t1;
         Texture2D t2;
@@ -69,22 +74,38 @@ namespace Project_YannickVanDyck
             animationMove.AddFrame(new Rectangle(242, 0, 22, 33));
             animationMove.AddFrame(new Rectangle(264, 0, 22, 33));
 
-            collisionRectangleTop = new Rectangle((int)position.X, (int)position.Y, 22, 15);
-            collisionRectangleBottom = new Rectangle((int)position.X, (int)position.Y + 17, 22, 15);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 33);
+            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 10, 33);
         }
 
-        public Rectangle CollisionRectangleTop { get => collisionRectangleTop; set => collisionRectangleTop = value; }
-        public Rectangle CollisionRectangleBottom { get => collisionRectangleBottom; set => collisionRectangleBottom = value; }
+        public Rectangle CollisionRectangleLeft { get => collisionRectangleLeft; set => collisionRectangleLeft = value; }
+        public Rectangle CollisionRectangleRight { get => collisionRectangleRight; set => collisionRectangleRight = value; }
 
         public void Update(GameTime gameTime)
         {
             animationMove.Update(gameTime);
 
             Vector2 temp = position;
-            /*temp.X += velocity.X;
-            temp.Y += velocity.Y;*/
+            temp.X += velocity.X;
+            temp.Y += velocity.Y;
+
+            if (!stopFall) //Fall conditions
+            {
+                velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            if (stopFall) //Don't fall conditions
+            {
+                velocity.Y = 0;
+                stopFall = false; // Zorgt ervoor dat als je van een blok stapt je valt en niet blijft zweven
+            }
+
 
             if (position.X < 100)
+            {
+                right = true;
+                left = false;
+            }
+            if (position.X >= 100 && position.X <= 700)
             {
                 right = true;
                 left = false;
@@ -123,11 +144,11 @@ namespace Project_YannickVanDyck
 
             if (t1 == null || t2 == null)
             {
-                t1 = GroundLayer.CreateTexture(device, CollisionRectangleTop.Width, CollisionRectangleTop.Height, pixel => Color.Red);
-                t2 = GroundLayer.CreateTexture(device, CollisionRectangleBottom.Width, CollisionRectangleBottom.Height, pixel => Color.Green);
+                t1 = GroundLayer.CreateTexture(device, CollisionRectangleLeft.Width, CollisionRectangleLeft.Height, pixel => Color.Red);
+                t2 = GroundLayer.CreateTexture(device, CollisionRectangleRight.Width, CollisionRectangleRight.Height, pixel => Color.Green);
             }
-            //spriteBatch.Draw(t1, CollisionRectangleTop, Color.White);
-            //spriteBatch.Draw(t2, CollisionRectangleBottom, Color.White);
+            //spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
+            //spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
         }
     }
 }

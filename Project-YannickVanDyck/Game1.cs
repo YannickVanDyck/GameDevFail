@@ -26,6 +26,8 @@ namespace Project_YannickVanDyck
         private State _currentState;
         private State _nextState;
 
+        Color backgroundColor = Color.Red;
+
         public void ChangeState(State state)
         {
             _nextState = state;
@@ -88,8 +90,8 @@ namespace Project_YannickVanDyck
             level2.texture = _tile2;
             level2.CreateWorld();
 
-            Co = new CollisionManager(hero, level1.Collides, this, Content, GraphicsDevice);
-            Co2 = new CollisionManager(hero, level2.Collides, this, Content, GraphicsDevice);
+            Co = new CollisionManager(hero, level1.Collides,level1.Skeletons, this, Content, GraphicsDevice);
+            Co2 = new CollisionManager(hero, level2.Collides,level2.Skeletons, this, Content, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -158,7 +160,7 @@ namespace Project_YannickVanDyck
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _currentState.Draw(gameTime, spriteBatch);
 
