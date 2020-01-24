@@ -36,9 +36,8 @@ namespace Project_YannickVanDyck
 
         Animation animationMove;
 
-        bool left = false;
-        bool right = false;
-
+        public bool stopLeft = true;
+        public bool stopRight = false;
         public bool stopFall = false;
 
         public Vector2 velocity;
@@ -74,8 +73,8 @@ namespace Project_YannickVanDyck
             animationMove.AddFrame(new Rectangle(242, 0, 22, 33));
             animationMove.AddFrame(new Rectangle(264, 0, 22, 33));
 
-            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 33);
-            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 10, 33);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 30);
+            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 10, 30);
         }
 
         public Rectangle CollisionRectangleLeft { get => collisionRectangleLeft; set => collisionRectangleLeft = value; }
@@ -89,6 +88,15 @@ namespace Project_YannickVanDyck
             temp.X += velocity.X;
             temp.Y += velocity.Y;
 
+            if (position.X < 0 || stopLeft)
+            {
+                temp.X += 0.5f;
+            }
+            else if (position.X > 1920 || stopRight)
+            {
+                temp.X -= 0.5f;
+            }
+
             if (!stopFall) //Fall conditions
             {
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -98,42 +106,16 @@ namespace Project_YannickVanDyck
                 velocity.Y = 0;
                 stopFall = false; // Zorgt ervoor dat als je van een blok stapt je valt en niet blijft zweven
             }
-
-
-            if (position.X < 100)
-            {
-                right = true;
-                left = false;
-            }
-            if (position.X >= 100 && position.X <= 700)
-            {
-                right = true;
-                left = false;
-            }
-            if (position.X > 700)
-            {
-                right = false;
-                left = true;
-            }
-
-            if (right == true)
-            {
-                temp.X += 0.5f;
-            }
-            if (left == true)
-            {
-                temp.X -= 0.5f;
-            }
             position = temp;
         }
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice device)
         {
-            if (right == true)
+            if (stopLeft == true)
             {
                 spriteBatch.Draw(textureRight, position, animationMove.currentFrame.SourceRectangle, Color.White);
             }
-            if (left == true)
+            if (stopRight == true)
             {
                 spriteBatch.Draw(textureLeft, position, animationMove.currentFrame.SourceRectangle, Color.White);
             } else

@@ -12,8 +12,10 @@ namespace Project_YannickVanDyck
         public Texture2D texture;
         public Texture2D skeletonLeftTexture;
         public Texture2D skeletonRightTexture;
+        public Texture2D heroLeftTexture;
+        public Texture2D heroRightTexture;
 
-        Hero Hero;
+        Hero HeroHard;
         Game1 _game;
         ContentManager _content;
         GraphicsDevice _graphicsDevice;
@@ -23,6 +25,7 @@ namespace Project_YannickVanDyck
 
         public List<ICollide> Collides = new List<ICollide>();
         public List<ICollideSkeleton> Skeletons = new List<ICollideSkeleton>();
+        public List<ICollideHero> Hero = new List<ICollideHero>();
 
         public byte[,] tileArray = new Byte[,]
         {
@@ -54,15 +57,15 @@ namespace Project_YannickVanDyck
             { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
             { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
             { 0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-            { 0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-            { 2,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-            { 1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
+            { 0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+            { 0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+            { 1,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,1 },
             { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1 },
         };
 
         public Level1(Hero hero, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
         {
-            Hero = hero;
+            HeroHard = hero;
             _game = game;
             _content = content;
             _graphicsDevice = graphicsDevice;
@@ -83,9 +86,13 @@ namespace Project_YannickVanDyck
                     {
                         Skeletons.Add(new Skeleton(skeletonLeftTexture, skeletonRightTexture, new Vector2(y * 32, x *32)));
                     }
+                    if (tileArray[x, y] == 3)
+                    {
+                        Hero.Add(new Hero(heroLeftTexture, heroRightTexture, new Vector2(y * 32, x * 32)));
+                    }
                 }
             }
-            CM = new CollisionManager(Hero, Collides, Skeletons, _game, _content, _graphicsDevice);
+            CM = new CollisionManager(HeroHard, Collides, Skeletons, Hero, _game, _content, _graphicsDevice);
         }
 
         public void DrawWorld(SpriteBatch spriteBatch, GraphicsDevice device)
@@ -95,6 +102,10 @@ namespace Project_YannickVanDyck
                 item.Draw(spriteBatch, device);
             }
             foreach (var item in Skeletons)
+            {
+                item.Draw(spriteBatch, device);
+            }
+            foreach (var item in Hero)
             {
                 item.Draw(spriteBatch, device);
             }
@@ -110,6 +121,11 @@ namespace Project_YannickVanDyck
         {
             foreach (var item in Skeletons)
             {
+                item.Update(gameTime);
+            }
+            foreach (Hero item in Hero)
+            {
+                item._controls = new ZQSDControl();
                 item.Update(gameTime);
             }
             CM.CheckForCollision();

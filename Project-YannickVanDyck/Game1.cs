@@ -26,8 +26,6 @@ namespace Project_YannickVanDyck
         private State _currentState;
         private State _nextState;
 
-        Color backgroundColor = Color.Red;
-
         public void ChangeState(State state)
         {
             _nextState = state;
@@ -84,14 +82,16 @@ namespace Project_YannickVanDyck
             level1.texture = _tile;
             level1.skeletonLeftTexture = _skeletonLeft;
             level1.skeletonRightTexture = _skeletonRight;
+            level1.heroLeftTexture = _heroTextureLeft;
+            level1.heroRightTexture = _heroTextureRight;
             level1.CreateWorld();
 
             level2 = new Level2(hero, this, Content, GraphicsDevice);
             level2.texture = _tile2;
             level2.CreateWorld();
 
-            Co = new CollisionManager(hero, level1.Collides,level1.Skeletons, this, Content, GraphicsDevice);
-            Co2 = new CollisionManager(hero, level2.Collides,level2.Skeletons, this, Content, GraphicsDevice);
+            Co = new CollisionManager(hero, level1.Collides,level1.Skeletons, level1.Hero, this, Content, GraphicsDevice);
+            Co2 = new CollisionManager(hero, level2.Collides,level2.Skeletons, level2.Hero, this, Content, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -127,7 +127,7 @@ namespace Project_YannickVanDyck
 
             if (_currentState is GameState)
             {
-                hero.Update(gameTime);
+                //hero.Update(gameTime);
 
                 level1.Update(gameTime);
 
@@ -142,7 +142,7 @@ namespace Project_YannickVanDyck
 
             if (_currentState is GameState2)
             {
-                hero.Update(gameTime);
+                //hero.Update(gameTime);
 
                 level2.Update(gameTime);
             }
@@ -160,7 +160,7 @@ namespace Project_YannickVanDyck
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _currentState.Draw(gameTime, spriteBatch);
 
@@ -168,7 +168,7 @@ namespace Project_YannickVanDyck
             {
                 spriteBatch.Begin();
 
-                hero.Draw(spriteBatch, GraphicsDevice);
+                //hero.Draw(spriteBatch, GraphicsDevice);
                 level1.DrawWorld(spriteBatch, GraphicsDevice);
 
                 spriteBatch.End();
@@ -180,7 +180,8 @@ namespace Project_YannickVanDyck
             if (_currentState is GameState2)
             {
                 spriteBatch.Begin();
-                hero.Draw(spriteBatch, GraphicsDevice);
+
+                //hero.Draw(spriteBatch, GraphicsDevice);
                 level2.DrawWorld(spriteBatch, GraphicsDevice);
 
                 spriteBatch.End();

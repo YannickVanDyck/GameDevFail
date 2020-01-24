@@ -9,7 +9,8 @@ namespace Project_YannickVanDyck
     {
         List<ICollide> Collides;
         List<ICollideSkeleton> Skeletons;
-        Hero Hero;
+        List<ICollideHero> Hero;
+        Hero HeroHard;
         ICollide collide;
         Game1 Game;
 
@@ -17,11 +18,12 @@ namespace Project_YannickVanDyck
         GraphicsDevice _graphicsDevice;
 
 
-        public CollisionManager(Hero hero, List<ICollide> bloks, List<ICollideSkeleton> skeletons, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
+        public CollisionManager(Hero heroHard, List<ICollide> bloks, List<ICollideSkeleton> skeletons, List<ICollideHero> hero, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
         {
             Collides = bloks;
             Skeletons = skeletons;
             Hero = hero;
+            HeroHard = heroHard;
             Game = game;
 
             _content = content;
@@ -33,43 +35,58 @@ namespace Project_YannickVanDyck
         public void CheckForCollision()
         {
             Console.WriteLine(Collides.Count);
-            foreach (ICollide item in Collides)
+            foreach (ICollide blok in Collides)
             {
-                if (Hero.CollisionRectangleLeft.Intersects(item.CollisionRectangleTop) && Hero.CollisionRectangleLeft.Intersects(item.CollisionRectangleBottom))
+                foreach (Hero hero in Hero)
                 {
-                    Hero.stopLeft = true;
-                    Console.WriteLine("stop, there is a block on your left!");
-                }
-
-                if (Hero.CollisionRectangleRight.Intersects(item.CollisionRectangleTop) && Hero.CollisionRectangleRight.Intersects(item.CollisionRectangleBottom))
-                {
-                    Hero.stopRight = true;
-                    Console.WriteLine("stop, there is a block on your Right!");
-                }
-
-                if (item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleLeft) || item.CollisionRectangleTop.Intersects(Hero.CollisionRectangleRight))
-                {
-                    Hero.stopFall = true;
-                    Hero.stopJump = false;
-                    Console.WriteLine("stop, your feet touch the ground!");
-                }
-
-                if (item.CollisionRectangleBottom.Intersects(Hero.CollisionRectangleLeft) || item.CollisionRectangleBottom.Intersects(Hero.CollisionRectangleRight))
-                {
-                    Hero.stopJump = true;
-                    Console.WriteLine("stop, your bumping your head!");
-                }
-
-                foreach (Skeleton item2 in Skeletons)
-                {
-                    if (item2.CollisionRectangleLeft.Intersects(item.CollisionRectangleTop) || item2.CollisionRectangleRight.Intersects(item.CollisionRectangleTop))
+                    if (hero.CollisionRectangleLeft.Intersects(blok.CollisionRectangleTop) && hero.CollisionRectangleLeft.Intersects(blok.CollisionRectangleBottom))
                     {
-                        item2.stopFall = true;
+                        hero.stopLeft = true;
+                        Console.WriteLine("stop, there is a block on your left!");
                     }
 
-                    if (Hero.CollisionRectangleLeft.Intersects(item2.CollisionRectangleRight) || Hero.CollisionRectangleRight.Intersects(item2.CollisionRectangleLeft))
+                    if (hero.CollisionRectangleRight.Intersects(blok.CollisionRectangleTop) && hero.CollisionRectangleRight.Intersects(blok.CollisionRectangleBottom))
                     {
-                        Hero.isDead = true;
+                        hero.stopRight = true;
+                        Console.WriteLine("stop, there is a block on your Right!");
+                    }
+
+                    if (blok.CollisionRectangleTop.Intersects(hero.CollisionRectangleLeft) || blok.CollisionRectangleTop.Intersects(hero.CollisionRectangleRight))
+                    {
+                        hero.stopFall = true;
+                        hero.stopJump = false;
+                        Console.WriteLine("stop, your feet touch the ground!");
+                    }
+
+                    if (blok.CollisionRectangleBottom.Intersects(hero.CollisionRectangleLeft) || blok.CollisionRectangleBottom.Intersects(hero.CollisionRectangleRight))
+                    {
+                        hero.stopJump = true;
+                        Console.WriteLine("stop, your bumping your head!");
+                    }
+
+                    foreach (Skeleton skeleton in Skeletons)
+                    {
+                        if (skeleton.CollisionRectangleLeft.Intersects(blok.CollisionRectangleTop) || skeleton.CollisionRectangleRight.Intersects(blok.CollisionRectangleTop))
+                        {
+                            skeleton.stopFall = true;
+                        }
+
+                        if (skeleton.CollisionRectangleRight.Intersects(blok.CollisionRectangleTop) && skeleton.CollisionRectangleRight.Intersects(blok.CollisionRectangleBottom))
+                        {
+                            skeleton.stopRight = true;
+                            skeleton.stopLeft = false;
+                        }
+
+                        if (skeleton.CollisionRectangleLeft.Intersects(blok.CollisionRectangleTop) && skeleton.CollisionRectangleLeft.Intersects(blok.CollisionRectangleBottom))
+                        {
+                            skeleton.stopLeft = true;
+                            skeleton.stopRight = false;
+                        }
+
+                        if (hero.CollisionRectangleLeft.Intersects(skeleton.CollisionRectangleRight) || hero.CollisionRectangleRight.Intersects(skeleton.CollisionRectangleLeft))
+                        {
+                            HeroHard.isDead = true;
+                        }
                     }
                 }
             }

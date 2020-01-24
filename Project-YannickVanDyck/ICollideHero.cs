@@ -14,5 +14,6 @@ namespace Project_YannickVanDyck
         Rectangle CollisionRectangleRight { get; set; }
 
         void Draw(SpriteBatch spriteBatch, GraphicsDevice device);
+        void Update(GameTime gameTime);
     }
 }
