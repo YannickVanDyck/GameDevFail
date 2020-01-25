@@ -133,7 +133,7 @@ namespace Project_YannickVanDyck
 
             if (_controls.up && !stopJump) //Jump conditions
             {
-                velocity.Y = -10;
+                velocity.Y = -9;
                 stopFall = false;
                 stopJump = true; // If you're in the air you can't jump
             }
@@ -202,8 +202,8 @@ namespace Project_YannickVanDyck
                 t1 = GroundLayer.CreateTexture(device, CollisionRectangleLeft.Width, CollisionRectangleLeft.Height, pixel => Color.Red);
                 t2 = GroundLayer.CreateTexture(device, CollisionRectangleRight.Width, CollisionRectangleRight.Height, pixel => Color.Green);
             }
-            spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
-            spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
+            //spriteBatch.Draw(t1, CollisionRectangleLeft, Color.White);
+            //spriteBatch.Draw(t2, CollisionRectangleRight, Color.White);
         }
     }
 }

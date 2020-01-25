@@ -88,6 +88,10 @@ namespace Project_YannickVanDyck
 
             level2 = new Level2(hero, this, Content, GraphicsDevice);
             level2.texture = _tile2;
+            level2.skeletonLeftTexture = _skeletonLeft;
+            level2.skeletonRightTexture = _skeletonRight;
+            level2.heroLeftTexture = _heroTextureLeft;
+            level2.heroRightTexture = _heroTextureRight;
             level2.CreateWorld();
 
             Co = new CollisionManager(level1.Collides,level1.Skeletons, level1.Hero, this, Content, GraphicsDevice);

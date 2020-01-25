@@ -73,8 +73,8 @@ namespace Project_YannickVanDyck
             animationMove.AddFrame(new Rectangle(242, 0, 22, 33));
             animationMove.AddFrame(new Rectangle(264, 0, 22, 33));
 
-            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 30);
-            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 10, 30);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 50);
+            collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 10, 50);
         }
 
         public Rectangle CollisionRectangleLeft { get => collisionRectangleLeft; set => collisionRectangleLeft = value; }
@@ -100,11 +100,13 @@ namespace Project_YannickVanDyck
             if (!stopFall) //Fall conditions
             {
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                //temp.Y -= 5;
             }
             if (stopFall) //Don't fall conditions
             {
                 velocity.Y = 0;
                 stopFall = false; // Zorgt ervoor dat als je van een blok stapt je valt en niet blijft zweven
+                temp.Y -= 0.05f;
             }
             position = temp;
         }
@@ -113,14 +115,16 @@ namespace Project_YannickVanDyck
         {
             if (stopLeft == true)
             {
-                spriteBatch.Draw(textureRight, position, animationMove.currentFrame.SourceRectangle, Color.White);
+                spriteBatch.Draw(textureRight, new Rectangle((int)position.X, (int)position.Y, 33, 49), animationMove.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureRight, position, animationMove.currentFrame.SourceRectangle, Color.White);
             }
             if (stopRight == true)
             {
-                spriteBatch.Draw(textureLeft, position, animationMove.currentFrame.SourceRectangle, Color.White);
+                spriteBatch.Draw(textureLeft, new Rectangle((int)position.X, (int)position.Y, 33, 49), animationMove.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureLeft, position, animationMove.currentFrame.SourceRectangle, Color.White);
             } else
             {
-                spriteBatch.Draw(textureRight, position, animationMove.currentFrame.SourceRectangle, Color.White);
+                //spriteBatch.Draw(textureRight, position, animationMove.currentFrame.SourceRectangle, Color.White);
             }
 
 
