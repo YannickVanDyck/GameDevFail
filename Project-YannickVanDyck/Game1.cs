@@ -200,5 +200,10 @@ namespace Project_YannickVanDyck
         {
             LoadContent();
         }
+
+        public void NextLevel()
+        {
+            ChangeState(new GameState2(this, GraphicsDevice, Content));
+        }
     }
 }
