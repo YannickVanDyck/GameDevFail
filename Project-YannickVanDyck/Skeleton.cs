@@ -100,7 +100,6 @@ namespace Project_YannickVanDyck
             if (!stopFall) //Fall conditions
             {
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                //temp.Y -= 5;
             }
             if (stopFall) //Don't fall conditions
             {

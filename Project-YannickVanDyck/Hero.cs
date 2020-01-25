@@ -50,7 +50,7 @@ namespace Project_YannickVanDyck
         public bool isDead = false;
 
         public bool nextLevel = false;
-        int test = 0;
+        public int test = 0;
 
         Texture2D t1;
         Texture2D t2;
@@ -113,12 +113,12 @@ namespace Project_YannickVanDyck
 
             if (_controls.sprint && _controls.left && !stopLeft) // Sprint left
             {
-                temp.X -= 2;
+                temp.X -= 1.5f;
                 stopRight = false;
             }
             if (_controls.sprint && _controls.right && !stopRight) // Sprint right
             {
-                temp.X += 2;
+                temp.X += 1.5f;
                 stopLeft = false;
             }
 
@@ -149,6 +149,7 @@ namespace Project_YannickVanDyck
                 velocity.Y = 0;
                 stopFall = false; // Zorgt ervoor dat als je van een blok stapt je valt en niet blijft zweven
                 stopJump = false;
+                temp.Y -= test;
             }
 
             if (temp.Y > 1080)

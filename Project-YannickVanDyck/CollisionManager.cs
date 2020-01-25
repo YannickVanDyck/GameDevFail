@@ -54,6 +54,15 @@ namespace Project_YannickVanDyck
                     {
                         hero.stopFall = true;
                         hero.stopJump = false;
+
+                        /*if (hero.CollisionRectangleLeft.Y > blok.CollisionRectangleTop.Y)
+                        {
+                            hero.test = 5;
+                        }else
+                        {
+                            hero.test = 0;
+                        }*/
+
                         Console.WriteLine("stop, your feet touch the ground!");
                     }
 
