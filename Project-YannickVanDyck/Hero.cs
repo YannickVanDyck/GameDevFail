@@ -47,10 +47,11 @@ namespace Project_YannickVanDyck
         public bool stopJump = false;
         public bool stopFall = false;
 
+        public bool fallDead = false;
         public bool isDead = false;
 
         public bool nextLevel = false;
-        public int test = 0;
+        public float test = 0;
 
         Texture2D t1;
         Texture2D t2;
@@ -82,7 +83,7 @@ namespace Project_YannickVanDyck
             animationJump.AddFrame(new Rectangle(109, 396, 109, 132));
             animationJump.AddFrame(new Rectangle(0, 396, 109, 132));
 
-            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 60);
+            collisionRectangleLeft = new Rectangle((int)position.X, (int)position.Y, 10, 55);
             collisionRectangleRight = new Rectangle((int)position.X, (int)position.Y, 0, 0);
         }
         double xOffset = 0;
@@ -142,6 +143,11 @@ namespace Project_YannickVanDyck
             {
                 temp.Y += 2;
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (velocity.Y > 10)
+                {
+                    fallDead = true;
+                }
+                
             }
 
             if (stopFall) //Don't fall conditions
@@ -150,6 +156,10 @@ namespace Project_YannickVanDyck
                 stopFall = false; // Zorgt ervoor dat als je van een blok stapt je valt en niet blijft zweven
                 stopJump = false;
                 temp.Y -= test;
+                if (fallDead == true)
+                {
+                    _game.Load();
+                }
             }
 
             if (temp.Y > 1080)

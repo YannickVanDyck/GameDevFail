@@ -72,6 +72,8 @@ namespace Project_YannickVanDyck
             Texture2D _skeletonRight = Content.Load<Texture2D>("SkeletonRight");
             skeleton = new Skeleton(_skeletonLeft, _skeletonRight, new Vector2(0, 0));
 
+            Texture2D _coin = Content.Load<Texture2D>("depositphotos_113121878-stock-illustration-dollar-coin-with-spinning-animation");
+
             Texture2D _tile = Content.Load<Texture2D>("Tile");
             ground = new GroundLayer(_tile, new Vector2(0, 0));
 
@@ -79,11 +81,12 @@ namespace Project_YannickVanDyck
             ground2 = new GroundLayer(_tile2, new Vector2(0, 0));
 
             level1 = new Level1(hero, this, Content, GraphicsDevice);
-            level1.texture = _tile;
+            level1.textureBlok = _tile;
             level1.skeletonLeftTexture = _skeletonLeft;
             level1.skeletonRightTexture = _skeletonRight;
             level1.heroLeftTexture = _heroTextureLeft;
             level1.heroRightTexture = _heroTextureRight;
+            level1.Coin = _coin;
             level1.CreateWorld();
 
             level2 = new Level2(hero, this, Content, GraphicsDevice);
