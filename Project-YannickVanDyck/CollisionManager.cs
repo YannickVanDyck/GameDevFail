@@ -8,6 +8,7 @@ namespace Project_YannickVanDyck
     class CollisionManager
     {
         List<ICollide> Collides;
+        List<Coin> Coins;
         List<ICollideSkeleton> Skeletons;
         List<ICollideHero> Hero;
         Hero HeroHard;
@@ -18,9 +19,10 @@ namespace Project_YannickVanDyck
         GraphicsDevice _graphicsDevice;
 
 
-        public CollisionManager(List<ICollide> bloks, List<ICollideSkeleton> skeletons, List<ICollideHero> hero, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
+        public CollisionManager(List<ICollide> bloks,List<Coin> coins, List<ICollideSkeleton> skeletons, List<ICollideHero> hero, Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
         {
             Collides = bloks;
+            Coins = coins;
             Skeletons = skeletons;
             Hero = hero;
             Game = game;
@@ -54,11 +56,11 @@ namespace Project_YannickVanDyck
                     {
                         hero.stopFall = true;
                         hero.stopJump = false;
-                        if (hero.CollisionRectangleLeft.Y != blok.CollisionRectangleTop.Y)
+                        if (hero.CollisionRectangleLeft.Y + 54 > blok.CollisionRectangleTop.Y)
                         {
-                            hero.test = 0.1f;
+                            hero.yCorrection = 2f;
                         }
-                        else hero.test = 0;
+                        else hero.yCorrection = 0;
 
                         Console.WriteLine("stop, your feet touch the ground!");
                     }
@@ -90,8 +92,28 @@ namespace Project_YannickVanDyck
 
                         if (hero.CollisionRectangleLeft.Intersects(skeleton.CollisionRectangleRight) || hero.CollisionRectangleRight.Intersects(skeleton.CollisionRectangleLeft))
                         {
-                            Game.Load();
+                            Game.Dead();
                         }
+                    }
+
+                    foreach (Coin coin in Coins)
+                    {
+                        if (hero.CollisionRectangleLeft.Intersects(coin.CollisionRectangleTop) || hero.CollisionRectangleLeft.Intersects(coin.CollisionRectangleTop) || hero.CollisionRectangleRight.Intersects(coin.CollisionRectangleTop) || hero.CollisionRectangleRight.Intersects(coin.CollisionRectangleTop))
+                        {
+                            coin.IsRemoved = true;
+                            hero.stopFall = true;
+                        }
+                    }
+
+                    for (int i = 0; i < Coins.Count; i++)
+                    {
+                        Coin sprite = Coins[i];
+                        if (sprite.IsRemoved)
+                        {
+                            Coins.RemoveAt(i);
+                            i--;
+                        }
+
                     }
                 }
             }

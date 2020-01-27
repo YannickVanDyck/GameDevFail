@@ -47,6 +47,7 @@ namespace Project_YannickVanDyck
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            //_game.Load();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

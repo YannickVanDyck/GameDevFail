@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace Project_YannickVanDyck
 {
-    class Coin : ICollide
+    public class Coin : ICollide
     {
         public Texture2D texture;
         public Vector2 position;
         Animation FloatingCoin;
         private Rectangle collisionRectangleTop;
         private Rectangle collisionRectangleBottom;
+
+        public bool IsRemoved = false;
 
         Texture2D t1;
         Texture2D t2;
@@ -45,7 +47,10 @@ namespace Project_YannickVanDyck
 
         public void Update(GameTime gameTime)
         {
-            FloatingCoin.Update(gameTime);
+            if (!IsRemoved)
+            {
+                FloatingCoin.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice device)
@@ -59,6 +64,11 @@ namespace Project_YannickVanDyck
             }
             //spriteBatch.Draw(t1, CollisionRectangleTop, Color.White);
             //spriteBatch.Draw(t2, CollisionRectangleBottom, Color.White);
+        }
+
+        public void Delete(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Dispose();
         }
     }
 }

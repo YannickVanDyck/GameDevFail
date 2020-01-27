@@ -51,7 +51,7 @@ namespace Project_YannickVanDyck
         public bool isDead = false;
 
         public bool nextLevel = false;
-        public float test = 0;
+        public float yCorrection = 0;
 
         Texture2D t1;
         Texture2D t2;
@@ -143,7 +143,7 @@ namespace Project_YannickVanDyck
             {
                 temp.Y += 2;
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (velocity.Y > 10)
+                if (velocity.Y > 8)
                 {
                     fallDead = true;
                 }
@@ -155,16 +155,16 @@ namespace Project_YannickVanDyck
                 velocity.Y = 0;
                 stopFall = false; // Zorgt ervoor dat als je van een blok stapt je valt en niet blijft zweven
                 stopJump = false;
-                temp.Y -= test;
+                temp.Y -= yCorrection;
                 if (fallDead == true)
                 {
-                    _game.Load();
+                    _game.Dead();
                 }
             }
 
             if (temp.Y > 1080)
             {
-                _game.Load();
+                _game.Dead();
             }
 
             if (position.X > 1920)

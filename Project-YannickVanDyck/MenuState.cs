@@ -25,12 +25,12 @@ namespace Project_YannickVanDyck
             };
             newGameButton.Click += NewGameButton_Click;
 
-            var loadGameButton = new Button(buttonTexture, buttonFont)
+            var infoButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(1920 / 2, 1020 / 2),
-                Text = "Load Game",
+                Text = "Info",
             };
-            loadGameButton.Click += LoadGameButton_Click;
+            infoButton.Click += InfoButton_Click;
 
             var quitGameButton = new Button(buttonTexture, buttonFont)
             {
@@ -42,7 +42,7 @@ namespace Project_YannickVanDyck
             _components = new List<Component>()
             {
                 newGameButton,
-                loadGameButton,
+                infoButton,
                 quitGameButton,
             };
         }
@@ -52,7 +52,7 @@ namespace Project_YannickVanDyck
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
         }
 
-        private void LoadGameButton_Click(object sender, EventArgs e)
+        private void InfoButton_Click(object sender, EventArgs e)
         {
             // Do Nothing
         }

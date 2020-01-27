@@ -95,10 +95,11 @@ namespace Project_YannickVanDyck
             level2.skeletonRightTexture = _skeletonRight;
             level2.heroLeftTexture = _heroTextureLeft;
             level2.heroRightTexture = _heroTextureRight;
+            level2.Coin = _coin;
             level2.CreateWorld();
 
-            Co = new CollisionManager(level1.Collides,level1.Skeletons, level1.Hero, this, Content, GraphicsDevice);
-            Co2 = new CollisionManager(level2.Collides,level2.Skeletons, level2.Hero, this, Content, GraphicsDevice);
+            Co = new CollisionManager(level1.Collides, level1.Coins, level1.Skeletons, level1.Hero, this, Content, GraphicsDevice);
+            Co2 = new CollisionManager(level2.Collides, level2.Coins, level2.Skeletons, level2.Hero, this, Content, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -203,14 +204,20 @@ namespace Project_YannickVanDyck
             base.Draw(gameTime);
         }
 
-        public void Load()
+        public void Dead()
         {
             LoadContent();
+            ChangeState(new DeadState(this, GraphicsDevice, Content));
         }
 
         public void NextLevel()
         {
             ChangeState(new GameState2(this, GraphicsDevice, Content));
+        }
+
+        public void Load()
+        {
+            LoadContent();
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Project_YannickVanDyck
         CollisionManager CM;
 
         public List<ICollide> Collides = new List<ICollide>();
+        public List<Coin> Coins = new List<Coin>();
         public List<ICollideSkeleton> Skeletons = new List<ICollideSkeleton>();
         public List<ICollideHero> Hero = new List<ICollideHero>();
 
@@ -58,8 +59,8 @@ namespace Project_YannickVanDyck
             { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0 },
             { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
             { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1 },
-            { 1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1 },
-            { 1,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,1,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,1,1,1,1,1 },
+            { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1 },
+            { 1,0,3,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,1,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,1,1,1,1,1 },
             { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1 },
             { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
         };
@@ -93,11 +94,11 @@ namespace Project_YannickVanDyck
                     }
                     if (tileArray[x, y] == 4)
                     {
-                        Collides.Add(new Coin(Coin, new Vector2(y * 32, x * 32)));
+                        Coins.Add(new Coin(Coin, new Vector2(y * 32, x * 32)));
                     }
                 }
             }
-            CM = new CollisionManager(Collides, Skeletons, Hero, _game, _content, _graphicsDevice);
+            CM = new CollisionManager(Collides, Coins, Skeletons, Hero, _game, _content, _graphicsDevice);
         }
 
         public void DrawWorld(SpriteBatch spriteBatch, GraphicsDevice device)
@@ -107,6 +108,10 @@ namespace Project_YannickVanDyck
                 item.Draw(spriteBatch, device);
             }
             foreach (var item in Hero)
+            {
+                item.Draw(spriteBatch, device);
+            }
+            foreach (var item in Coins)
             {
                 item.Draw(spriteBatch, device);
             }
@@ -133,7 +138,7 @@ namespace Project_YannickVanDyck
                 item._controls = new ZQSDControl();
                 item.Update(gameTime);
             }
-            foreach (var item in Collides)
+            foreach (var item in Coins)
             {
                 item.Update(gameTime);
             }
