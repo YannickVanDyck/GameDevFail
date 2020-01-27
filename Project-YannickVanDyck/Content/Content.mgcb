@@ -116,3 +116,10 @@
 /processorParam:TextureFormat=Color
 /build:SkeletonRight.png
 
+#begin Text.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Text.spritefont
+

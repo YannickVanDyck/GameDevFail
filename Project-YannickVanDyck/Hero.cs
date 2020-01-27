@@ -50,8 +50,11 @@ namespace Project_YannickVanDyck
         public bool fallDead = false;
         public bool isDead = false;
 
+        public bool idleLeft = false;
+
         public bool nextLevel = false;
         public float yCorrection = 0;
+        public int coins;
 
         Texture2D t1;
         Texture2D t2;
@@ -105,11 +108,13 @@ namespace Project_YannickVanDyck
             {
                 temp.X -= 3;
                 stopRight = false;
+                idleLeft = true;
             }
             if (_controls.right && !stopRight) // Move to the right
             {
                 temp.X += 3;
                 stopLeft = false;
+                idleLeft = false;
             }
 
             if (_controls.sprint && _controls.left && !stopLeft) // Sprint left
@@ -134,20 +139,19 @@ namespace Project_YannickVanDyck
 
             if (_controls.up && !stopJump) //Jump conditions
             {
-                velocity.Y = -9;
+                velocity.Y = -10.5f;
                 stopFall = false;
                 stopJump = true; // If you're in the air you can't jump
             }
 
             if (!stopFall || stopJump) //Fall conditions
             {
-                temp.Y += 2;
+                temp.Y += 3.5f;
                 velocity.Y += (2 * gravity) * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (velocity.Y > 8)
                 {
                     fallDead = true;
                 }
-                
             }
 
             if (stopFall) //Don't fall conditions
@@ -172,17 +176,22 @@ namespace Project_YannickVanDyck
                 _game.NextLevel();
             }
             position = temp;
+
+            if (coins == 4)
+            {
+                _game.Won();
+            }
         }
 
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice device)
         {
-            if (!_controls.left && !_controls.right && !_controls.idleLeft)
+            if (!_controls.left && !_controls.right && !idleLeft)
             {
                 spriteBatch.Draw(textureRight, new Rectangle((int)position.X, (int)position.Y, 41, 66), animationIdle.currentFrame.SourceRectangle, Color.White);
                 //spriteBatch.Draw(textureRight, position, animationIdle.currentFrame.SourceRectangle, Color.White);
             }
-            if (!_controls.left && !_controls.right && _controls.idleLeft)
+            if (!_controls.left && !_controls.right && idleLeft)
             {
                 spriteBatch.Draw(textureLeft, new Rectangle((int)position.X, (int)position.Y, 41, 66), animationIdle.currentFrame.SourceRectangle, Color.White);
                 //spriteBatch.Draw(textureLeft, position, animationIdle.currentFrame.SourceRectangle, Color.White);

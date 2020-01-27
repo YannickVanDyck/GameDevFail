@@ -8,7 +8,7 @@ namespace Project_YannickVanDyck
         public bool right { get; set; }
         public bool up { get; set; }
         public bool down { get; set; }
-        public bool idleLeft { get; set; }
+        //public bool idleLeft { get; set; }
         public bool sprint { get; set; }
         public abstract void Update();
     }
@@ -22,7 +22,7 @@ namespace Project_YannickVanDyck
             if (stateKey.IsKeyDown(Keys.Q))
             {
                 left = true;
-                idleLeft = true;
+                //idleLeft = true;
             }
             if (stateKey.IsKeyUp(Keys.Q))
             {
@@ -32,7 +32,7 @@ namespace Project_YannickVanDyck
             if (stateKey.IsKeyDown(Keys.D))
             {
                 right = true;
-                idleLeft = false;
+                //idleLeft = false;
             }
             if (stateKey.IsKeyUp(Keys.D))
             {

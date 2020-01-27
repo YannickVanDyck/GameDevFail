@@ -219,5 +219,11 @@ namespace Project_YannickVanDyck
         {
             LoadContent();
         }
+
+        public void Won()
+        {
+            LoadContent();
+            ChangeState(new EndState(this, GraphicsDevice, Content));
+        }
     }
 }

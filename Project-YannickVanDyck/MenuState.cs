@@ -54,7 +54,7 @@ namespace Project_YannickVanDyck
 
         private void InfoButton_Click(object sender, EventArgs e)
         {
-            // Do Nothing
+            _game.ChangeState(new InfoState(_game, _graphicsDevice, _content));
         }
 
         private void QuitGameButton_Click(object sender, EventArgs e)

@@ -31,8 +31,6 @@ namespace Project_YannickVanDyck
             _graphicsDevice = graphicsDevice;
         }
 
-        //om te voorkomend dat je valt en deels in een blok zit, zorg ervoor dat als je een collision hebt tijdens het vallen dat de Y positie van je Hero naar de Y positie van het blok wordt gezet
-
         public void CheckForCollision()
         {
             Console.WriteLine(Collides.Count);
@@ -102,6 +100,7 @@ namespace Project_YannickVanDyck
                         {
                             coin.IsRemoved = true;
                             hero.stopFall = true;
+                            hero.coins++;
                         }
                     }
 

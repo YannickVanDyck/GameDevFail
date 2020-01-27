@@ -49,6 +49,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="DeadState.cs" />
+    <Compile Include="EndState.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameState2.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="ICollide.cs" />
     <Compile Include="ICollideHero.cs" />
     <Compile Include="ICollideSkeleton.cs" />
+    <Compile Include="InfoState.cs" />
     <Compile Include="Level1.cs" />
     <Compile Include="Level2.cs" />
     <Compile Include="MenuState.cs" />

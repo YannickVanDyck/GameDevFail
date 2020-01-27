@@ -38,8 +38,8 @@ namespace Project_YannickVanDyck
             FloatingCoin.AddFrame(new Rectangle(360, 0, 45, 42));
             FloatingCoin.AddFrame(new Rectangle(405, 0, 45, 42));
 
-            collisionRectangleTop = new Rectangle((int)position.X, (int)position.Y, 45, 20);
-            collisionRectangleBottom = new Rectangle((int)position.X, (int)position.Y + 22, 45, 20);
+            collisionRectangleTop = new Rectangle((int)position.X + 4, (int)position.Y, 25, 20);
+            collisionRectangleBottom = new Rectangle((int)position.X + 4, (int)position.Y + 22, 25, 20);
         }
 
         public Rectangle CollisionRectangleTop { get => collisionRectangleTop; set => collisionRectangleTop = value; }
